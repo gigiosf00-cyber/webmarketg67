@@ -3,196 +3,419 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebMarketG67 - Buscador Shopee</title>
+    <title>WEBMARKETG67 | Central de Achadinhos</title>
+    <!-- Ícones Modernos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fonte Google Inter (Usada pelas maiores startups do mundo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* Estilos focados em Celular (Mobile First) */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f7;
+        :root {
+            --primary: #ff5722;
+            --primary-hover: #e64a19;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            
+            /* Cores das Lojas Suavizadas e Modernas */
+            --shopee: #ee4d2d;
+            --amazon: #232f3e;
+            --mercadolivre: #ffe600;
+            --magalu: #0086ff;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #333;
-        }
-        .container {
-            max-width: 450px;
-            width: 100%;
-            background: #ffffff;
-            padding: 30px 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center;
+            padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 30px 15px;
+        }
+
+        .container {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 24px;
+            padding: 35px 24px;
+            text-align: center;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Header Premium */
+        .brand-wrapper {
+            margin-bottom: 24px;
+        }
+
         .logo {
             font-size: 26px;
-            font-weight: bold;
-            color: #ff5722;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .description {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        .search-box {
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        input[type="number"] {
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        /* Caixa de Instrução Neo-Minimalista */
+        .instruction-card {
+            background-color: #f1f5f9;
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            color: #334155;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .instruction-card i {
+            color: var(--primary);
+            background: #fff;
+            padding: 8px;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        /* Buscador Flutuante */
+        .search-container {
+            position: relative;
+            display: flex;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 6px;
+            transition: all 0.2s ease;
+            margin-bottom: 32px;
+        }
+
+        .search-container:focus-within {
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.15);
+        }
+
+        .search-container input {
             flex: 1;
-            padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 16px;
+            border: none;
+            background: transparent;
             outline: none;
-            transition: border-color 0.3s;
-            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            padding: 12px 16px;
+            text-transform: uppercase;
         }
-        input[type="number"]:focus {
-            border-color: #ff5722;
+
+        .search-container input::placeholder {
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: none;
         }
-        button {
-            padding: 15px 25px;
-            background-color: #ff5722;
+
+        .btn-search {
+            background-color: var(--primary);
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #e64a19;
-        }
-        .success-msg {
-            color: #2e7d32;
+            padding: 0 24px;
             font-size: 15px;
-            margin-top: 15px;
-            display: none;
-            font-weight: bold;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .error-msg {
-            color: #d32f2f;
+
+        .btn-search:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-search:active {
+            transform: scale(0.96);
+        }
+
+        /* Mensagens de feedback */
+        .feedback-msg {
             font-size: 14px;
-            margin-top: 15px;
+            font-weight: 600;
+            margin-top: -20px;
+            margin-bottom: 20px;
             display: none;
-            font-weight: 500;
         }
-        .footer {
-            margin-top: 35px;
+        .success { color: #16a34a; }
+        .error { color: #dc2626; }
+
+        /* Divisor Elegante */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #cbd5e1;
             font-size: 11px;
-            color: #999;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
         }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .divider:not(:empty)::before { margin-right: 12px; }
+        .divider:not(:empty)::after { margin-left: 12px; }
+
+        /* Grade de Botões de Curiosos (Lojas Completas) */
+        .grid-stores {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .store-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .store-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .store-card:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        .store-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .store-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .store-badge {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+
+        /* Customização individual dos ícones das lojas */
+        .btn-shopee .store-icon { background-color: var(--shopee); }
+        .btn-amazon .store-icon { background-color: var(--amazon); }
+        .btn-ml .store-icon { background-color: var(--mercadolivre); color: #111; }
+        .btn-magalu .store-icon { background-color: var(--magalu); }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo">WebMarketG67</div>
-        <div class="description">
-            <strong>Achadinhos da Shopee! 🎯</strong><br>
-            Encontre o produto do vídeo rapidamente. Digite o número do código que você viu no post e clique em "Buscar".
-        </div>
-
-        <div class="search-box">
-            <input type="number" id="codigoInput" placeholder="Digite o código (1 a 44)" min="1" max="44">
-            <button onclick="buscarProduto()">Buscar</button>
-        </div>
-
-        <div id="success" class="success-msg"></div>
-        <div id="error" class="error-msg">Código não encontrado. Digite um número entre 1 e 44!</div>
-
-        <div class="footer">
-            Seguro & Oficial • Links Diretos da Shopee
-        </div>
+<div class="container">
+    <!-- Header -->
+    <div class="brand-wrapper">
+        <div class="logo"><i class="fas fa-bolt"></i> WEBMARKET<span>G67</span></div>
+        <div class="subtitle">Sua Central de Achadinhos Diretos</div>
     </div>
 
-    <script>
-        // Banco de dados dos seus 44 produtos oficiais
-        const produtos = {
-            1: { nome: "Calça Jeans", link: "https://s.shopee.com.br/5fmNYHnfuD" },
-            2: { nome: "Conjunto Blazer", link: "https://s.shopee.com.br/40e9ZNCvsV" },
-            3: { nome: "Blazer Casaqueto", link: "https://s.shopee.com.br/2BCVO3w5jU" },
-            4: { nome: "Calça Cós Alto Legging", link: "https://s.shopee.com.br/4AxZlpYVkV" },
-            5: { nome: "Conjunto 3 Peças com Blazer", link: "https://s.shopee.com.br/8V6YvrCLJL" },
-            6: { nome: "Vestido Manga Longa Canelado", link: "https://s.shopee.com.br/7VE1k6RKSC" },
-            7: { nome: "Blusa Social Manga 3/4", link: "https://s.shopee.com.br/9KffvZ8mbC" },
-            8: { nome: "Conjunto Linho com Blazer", link: "https://s.shopee.com.br/5L9XALXygW" },
-            9: { nome: "Conjunto Tricot 3 Peças", link: "https://s.shopee.com.br/7pqs92UpvA" },
-            10: { nome: "Conjunto Lanzinha 3 Peças", link: "https://s.shopee.com.br/3LOSmoGIkq" },
-            11: { nome: "Vestido Longo Gola Alta", link: "https://s.shopee.com.br/2qSCH4Xw0I" },
-            12: { nome: "Conjunto Blazer / Pantalona", link: "https://s.shopee.com.br/9zvMoKhgCG" },
-            13: { nome: "Jaqueta Cotelê", link: "https://s.shopee.com.br/7AbBRI9o4a" },
-            14: { nome: "Macacão Longo Virginia", link: "https://s.shopee.com.br/3g1JH0jtQu" },
-            15: { nome: "Conjunto Casaco Cropped Manga Longa", link: "https://s.shopee.com.br/180uPqR2j" },
-            16: { nome: "Conjunto Blazer Premium", link: "https://s.shopee.com.br/8fPzEOvD1w" },
-            17: { nome: "Conjunto Vestido com Casaco", link: "https://s.shopee.com.br/8V6Z2A8b1J" },
-            18: { nome: "Jaqueta Esportiva Dry Fit", link: "https://s.shopee.com.br/gNhhvoo5l" },
-            19: { nome: "Jaquetinha Esportiva Solar", link: "https://s.shopee.com.br/AKYDDnybD9" },
-            20: { nome: "Kit 3 Blusas Manga Longa", link: "https://s.shopee.com.br/3qKjTtzVyR" },
-            21: { nome: "Vestido Longo Jeans", link: "https://s.shopee.com.br/50Wgs9XPou" },
-            22: { nome: "Blusa Tricô Losango", link: "https://s.shopee.com.br/7KubeXH9wC" },
-            23: { nome: "Blusa Manga Longa Bicolor", link: "https://s.shopee.com.br/5q5nrpCrJB" },
-            24: { nome: "Jaqueta de Couro Premium", link: "https://s.shopee.com.br/60PE4B2DFB" },
-            25: { nome: "Vestido Longo Alcinha", link: "https://s.shopee.com.br/70HlGAkws5" },
-            26: { nome: "Cardigan Tricot Longo", link: "https://s.shopee.com.br/7KubepsEIa" },
-            27: { nome: "Conjunto Lanzinha Longo Casaco Pantalona", link: "https://s.shopee.com.br/AAEn26WgSn" },
-            28: { nome: "Jaqueta Cropped Fitness", link: "https://s.shopee.com.br/6L24T8A3mR" },
-            29: { nome: "Casaco Tricot Xadrez", link: "https://s.shopee.com.br/7Kubf1NBqB" },
-            30: { nome: "Cardigan Kimono", link: "https://s.shopee.com.br/7VE1rNXzc7" },
-            31: { nome: "Meias de Compressão", link: "https://s.shopee.com.br/8Kn8r0fwIn" },
-            32: { nome: "Moletom Masculino com Capuz", link: "https://s.shopee.com.br/1gGEuoLuf8" },
-            33: { nome: "Vestido Midi Canelado", link: "https://s.shopee.com.br/5Aq75IcAu8" },
-            34: { nome: "Vestido Tricot Elegante", link: "https://s.shopee.com.br/qh7vP7U8W" },
-            35: { nome: "Cardigan Tricot Botão Dourado", link: "https://s.shopee.com.br/W4HWtbkOe" },
-            36: { nome: "Pijama Feminino Felpudo Xadrez", link: "https://s.shopee.com.br/8Kn8rKu46U" },
-            37: { nome: "Vestlegging Manga Longa", link: "https://s.shopee.com.br/qh7vhjApM" },
-            38: { nome: "Casaco Teddy com Zíper", link: "https://s.shopee.com.br/9zvMqks25N" },
-            39: { nome: "Blusa Tricô Delicada", link: "https://s.shopee.com.br/6VLUgPtvan" },
-            40: { nome: "Suéter Tricot", link: "https://s.shopee.com.br/4ftqV5UYNs" },
-            41: { nome: "Bota Coturno Tratorado", link: "https://s.shopee.com.br/7Kubg2oKcc" },
-            42: { nome: "Body Manga Longa", link: "https://s.shopee.com.br/30lcWAbf90" },
-            43: { nome: "Conjunto Canelado Manga Curta", link: "https://s.shopee.com.br/6AieI2OOZC" },
-            44: { nome: "Vestido Canelado Gola Transpassada", link: "https://s.shopee.com.br/7fXS4rqbuv" }
+    <!-- Instrução Direta Baseada na sua ideia -->
+    <div class="instruction-card">
+        <i class="fas fa-arrow-pointer"></i>
+        <span>Escolha o magazine ou digite o código do post para ir direto!</span>
+    </div>
+
+    <!-- Buscador Geral -->
+    <div class="search-container">
+        <input type="text" id="inputCodigo" placeholder="Ex: S1, A12, M5..." autocomplete="off">
+        <button class="btn-search" onclick="buscarAcao()">Buscar</button>
+    </div>
+
+    <!-- Mensagens de Erro/Sucesso integradas ao novo layout -->
+    <div id="msgSucesso" class="feedback-msg success"></div>
+    <div id="msgErro" class="feedback-msg error">Código não encontrado! Verifique a letra e o número.</div>
+
+    <!-- Seção de Curiosos -->
+    <div class="divider">Navegar pelas Lojas</div>
+
+    <div class="grid-stores">
+        <!-- Shopee -->
+        <div class="store-card btn-shopee" onclick="abrirVitrine('shopee')">
+            <div class="store-icon"><i class="fas fa-bag-shopping"></i></div>
+            <div class="store-name">Shopee</div>
+            <div class="store-badge">Código S...</div>
+        </div>
+
+        <!-- Amazon -->
+        <div class="store-card btn-amazon" onclick="abrirVitrine('amazon')">
+            <div class="store-icon"><i class="fab fa-amazon"></i></div>
+            <div class="store-name">Amazon</div>
+            <div class="store-badge">Código A...</div>
+        </div>
+
+        <!-- Mercado Livre -->
+        <div class="store-card btn-ml" onclick="abrirVitrine('mercadolivre')">
+            <div class="store-icon"><i class="fas fa-handshake"></i></div>
+            <div class="store-name">Mercado Livre</div>
+            <div class="store-badge">Código M...</div>
+        </div>
+
+        <!-- Magalu -->
+        <div class="store-card btn-magalu" onclick="abrirVitrine('magalu')">
+            <div class="store-icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="store-name">Magalu</div>
+            <div class="store-badge">Código G...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. BANCO DE DADOS ATUALIZADO COM SEUS LINKS REAIS DA SHOPEE (S1 até S44)
+    const linksProdutos = {
+        "S1": "https://s.shopee.com.br/5fmNYHnfuD",
+        "S2": "https://s.shopee.com.br/40e9ZNCvsV",
+        "S3": "https://s.shopee.com.br/2BCVO3w5jU",
+        "S4": "https://s.shopee.com.br/4AxZlpYVkV",
+        "S5": "https://s.shopee.com.br/8V6YvrCLJL",
+        "S6": "https://s.shopee.com.br/7VE1k6RKSC",
+        "S7": "https://s.shopee.com.br/9KffvZ8mbC",
+        "S8": "https://s.shopee.com.br/5L9XALXygW",
+        "S9": "https://s.shopee.com.br/7pqs92UpvA",
+        "S10": "https://s.shopee.com.br/3LOSmoGIkq",
+        "S11": "https://s.shopee.com.br/2qSCH4Xw0I",
+        "S12": "https://s.shopee.com.br/9zvMoKhgCG",
+        "S13": "https://s.shopee.com.br/7AbBRI9o4a",
+        "S14": "https://s.shopee.com.br/3g1JH0jtQu",
+        "S15": "https://s.shopee.com.br/180uPqR2j",
+        "S16": "https://s.shopee.com.br/8fPzEOvD1w",
+        "S17": "https://s.shopee.com.br/8V6Z2A8b1J",
+        "S18": "https://s.shopee.com.br/gNhhvoo5l",
+        "S19": "https://s.shopee.com.br/AKYDDnybD9",
+        "S20": "https://s.shopee.com.br/3qKjTtzVyR",
+        "S21": "https://s.shopee.com.br/50Wgs9XPou",
+        "S22": "https://s.shopee.com.br/7KubeXH9wC",
+        "S23": "https://s.shopee.com.br/5q5nrpCrJB",
+        "S24": "https://s.shopee.com.br/60PE4B2DFB",
+        "S25": "https://s.shopee.com.br/70HlGAkws5",
+        "S26": "https://s.shopee.com.br/7KubepsEIa",
+        "S27": "https://s.shopee.com.br/AAEn26WgSn",
+        "S28": "https://s.shopee.com.br/6L24T8A3mR",
+        "S29": "https://s.shopee.com.br/7Kubf1NBqB",
+        "S30": "https://s.shopee.com.br/7VE1rNXzc7",
+        "S31": "https://s.shopee.com.br/8Kn8r0fwIn",
+        "S32": "https://s.shopee.com.br/1gGEuoLuf8",
+        "S33": "https://s.shopee.com.br/5Aq75IcAu8",
+        "S34": "https://s.shopee.com.br/qh7vP7U8W",
+        "S35": "https://s.shopee.com.br/W4HWtbkOe",
+        "S36": "https://s.shopee.com.br/8Kn8rKu46U",
+        "S37": "https://s.shopee.com.br/qh7vhjApM",
+        "S38": "https://s.shopee.com.br/9zvMqks25N",
+        "S39": "https://s.shopee.com.br/6VLUgPtvan",
+        "S40": "https://s.shopee.com.br/4ftqV5UYNs",
+        "S41": "https://s.shopee.com.br/7Kubg2oKcc",
+        "S42": "https://s.shopee.com.br/30lcWAbf90",
+        "S43": "https://s.shopee.com.br/6AieI2OOZC",
+        "S44": "https://s.shopee.com.br/7fXS4rqbuv",
+
+        // --- EXEMPLOS PARA OUTRAS LOJAS (Basta alimentar quando tiver os links) ---
+        "A1": "https://amazon.com.br/link-da-amazon",
+        "M1": "https://mercadolivre.com/link-do-mercado-livre",
+        "G1": "https://magazineluiza.com.br/link-da-magalu"
+    };
+
+    // 2. LINKS DAS SUAS VITRINES COMPLETAS (Para os usuários curiosos que clicam nos botões)
+    function abrirVitrine(loja) {
+        const vitrines = {
+            'shopee': 'https://shope.ee/SUA_VITRINE_COMPLETA_AQUI',
+            'amazon': 'https://www.amazon.com.br/shop/SEU_USER_AQUI',
+            'mercadolivre': 'https://perfil.mercadolivre.com.br/SEU_USER_AQUI',
+            'magalu': 'https://www.magazinevoce.com.br/magazineSEUUSER/'
         };
+        window.location.href = vitrines[loja];
+    }
 
-        function buscarProduto() {
-            const codigo = document.getElementById("codigoInput").value;
-            const errorDiv = document.getElementById("error");
-            const successDiv = document.getElementById("success");
+    // Ação do Botão Buscar Geral
+    function buscarAcao() {
+        const valorInput = document.getElementById('inputCodigo').value.trim().toUpperCase();
+        const msgErro = document.getElementById('msgErro');
+        const msgSucesso = document.getElementById('msgSucesso');
 
-            if (produtos[codigo]) {
-                errorDiv.style.display = "none";
-                
-                // Mostra mensagem de sucesso com o nome do produto encontrado
-                successDiv.innerText = "Abraçando o link de: " + produtos[codigo].nome + "... 🛍️";
-                successDiv.style.display = "block";
-                
-                // Redireciona o cliente direto para o link de afiliado da Shopee
-                setTimeout(function() {
-                    window.location.href = produtos[codigo].link;
-                }, 800);
-            } else {
-                successDiv.style.display = "none";
-                errorDiv.style.display = "block";
-            }
+        if (valorInput === "") {
+            msgSucesso.style.display = "none";
+            msgErro.innerText = "Por favor, digite o código do post!";
+            msgErro.style.display = "block";
+            return;
         }
 
-        // Permite dar 'Enter' no teclado do celular para buscar
-        document.getElementById("codigoInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                buscarProduto();
-            }
-        });
-    </script>
+        if (linksProdutos[valorInput]) {
+            msgErro.style.display = "none";
+            msgSucesso.innerText = "Redirecionando para a loja... 🛍️";
+            msgSucesso.style.display = "block";
+            
+            setTimeout(function() {
+                window.location.href = linksProdutos[valorInput];
+            }, 600);
+        } else {
+            msgSucesso.style.display = "none";
+            msgErro.innerText = "Código não encontrado! Lembre-se de usar a letra (Ex: S1, A5...)";
+            msgErro.style.display = "block";
+        }
+    }
+
+    // Ativar busca automática ao apertar "Enter" no teclado
+    document.getElementById('inputCodigo').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            buscarAcao();
+        }
+    });
+</script>
 
 </body>
 </html>
