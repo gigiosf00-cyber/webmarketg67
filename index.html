@@ -22,9 +22,6 @@
             
             /* Cores das Lojas */
             --shopee: #ee4d2d;
-            --amazon: #232f3e;
-            --mercadolivre: #ffe600;
-            --magalu: #0086ff;
         }
 
         * {
@@ -158,10 +155,6 @@
             background-color: var(--primary-hover);
         }
 
-        .btn-search:active {
-            transform: scale(0.96);
-        }
-
         /* Mensagens de feedback */
         .feedback-msg {
             font-size: 14px;
@@ -195,65 +188,99 @@
         .divider:not(:empty)::before { margin-right: 12px; }
         .divider:not(:empty)::after { margin-left: 12px; }
 
-        /* Grade de Botões */
-        .grid-stores {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .store-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 16px;
-            cursor: pointer;
+        /* Nova Vitrine de Imagens */
+        .vitrine-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 20px;
+            text-align: left;
         }
 
-        .store-card:hover {
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .product-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
         }
 
-        .store-card:active {
-            transform: translateY(0) scale(0.97);
+        .product-image-wrapper {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            background: #f1f5f9;
+            position: relative;
         }
 
-        .store-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-code-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-details {
+            padding: 16px;
+        }
+
+        .product-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .btn-buy-now {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+            background-color: var(--shopee);
             color: white;
-            font-size: 18px;
-        }
-
-        .store-name {
-            font-size: 13px;
+            text-decoration: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
             font-weight: 700;
-            color: var(--text-main);
+            transition: background 0.2s;
         }
 
-        .store-badge {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: #f1f5f9;
-            padding: 2px 8px;
-            border-radius: 20px;
+        .btn-buy-now:hover {
+            background-color: #d73a1e;
         }
 
-        .btn-shopee .store-icon { background-color: var(--shopee); }
-        .btn-amazon .store-icon { background-color: var(--amazon); }
-        .btn-ml .store-icon { background-color: var(--mercadolivre); color: #111; }
-        .btn-magalu .store-icon { background-color: var(--magalu); }
+        /* Botão para abrir Loja Geral no final */
+        .btn-loja-geral {
+            display: block;
+            margin-top: 15px;
+            background: #0f172a;
+            color: white;
+            text-decoration: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -268,121 +295,78 @@
     <!-- Instrução Direta -->
     <div class="instruction-card">
         <i class="fas fa-arrow-pointer"></i>
-        <span>Escolha o magazine ou digite o código do post para ir direto!</span>
+        <span>Digite o código do post para ir direto ou veja as opções abaixo!</span>
     </div>
 
     <!-- Buscador Geral -->
     <div class="search-container">
-        <input type="text" id="inputCodigo" placeholder="Ex: S1, A12, M5..." autocomplete="off">
+        <input type="text" id="inputCodigo" placeholder="Ex: S1, S46..." autocomplete="off">
         <button class="btn-search" onclick="buscarAcao()">Buscar</button>
     </div>
 
     <!-- Mensagens de Erro/Sucesso -->
     <div id="msgSucesso" class="feedback-msg success"></div>
-    <div id="msgErro" class="feedback-msg error">Código não encontrado! Verifique a letra e o número.</div>
+    <div id="msgErro" class="feedback-msg error">Código não encontrado! Verifique o número.</div>
 
-    <!-- Seção de Curiosos -->
-    <div class="divider">Navegar pelas Lojas</div>
+    <!-- Seção da Vitrine Visual -->
+    <div class="divider">Vitrine de Achadinhos</div>
 
-    <div class="grid-stores">
-        <!-- Shopee -->
-        <div class="store-card btn-shopee" onclick="abrirVitrine('shopee')">
-            <div class="store-icon"><i class="fas fa-bag-shopping"></i></div>
-            <div class="store-name">Shopee</div>
-            <div class="store-badge">Código S...</div>
+    <div class="vitrine-container">
+        
+        <!-- CARD DO PRODUTO S46 (Macacão Fitness) -->
+        <div class="product-card">
+            <div class="product-image-wrapper">
+                <span class="product-code-tag">CÓDIGO S46</span>
+                <!-- O GitHub vai ler o seu link de imagem aqui: -->
+                <img class="product-image" src="https://s.shopee.com.br/BRV7soQ6M" alt="Macacão Fitness Poliamida">
+            </div>
+            <div class="product-details">
+                <h3 class="product-title">Macacão Fitness Poliamida Liso Básico</h3>
+                <a href="https://s.shopee.com.br/9zvQpuwXPV" target="_blank" class="btn-buy-now">
+                    <i class="fas fa-shopping-cart"></i> Ver na Shopee
+                </a>
+            </div>
         </div>
 
-        <!-- Amazon -->
-        <div class="store-card btn-amazon" onclick="abrirVitrine('amazon')">
-            <div class="store-icon"><i class="fab fa-amazon"></i></div>
-            <div class="store-name">Amazon</div>
-            <div class="store-badge">Código A...</div>
-        </div>
-
-        <!-- Mercado Livre -->
-        <div class="store-card btn-ml" onclick="abrirVitrine('mercadolivre')">
-            <div class="store-icon"><i class="fas fa-handshake"></i></div>
-            <div class="store-name">Mercado Livre</div>
-            <div class="store-badge">Código M...</div>
-        </div>
-
-        <!-- Magalu -->
-        <div class="store-card btn-magalu" onclick="abrirVitrine('magalu')">
-            <div class="store-icon"><i class="fas fa-shopping-cart"></i></div>
-            <div class="store-name">Magalu</div>
-            <div class="store-badge">Código G...</div>
-        </div>
     </div>
+
+    <!-- Botão de Bônus para ver a vitrine oficial inteira -->
+    <a href="https://collshp.com/gefshopee" target="_blank" class="btn-loja-geral">
+        <i class="fas fa-store"></i> Ver Minha Vitrine Completa Shopee
+    </a>
 </div>
 
 <script>
-    // 1. BANCO DE DADOS OFICIAL COM SEUS 44 LINKS DA SHOPEE
+    // BANCO DE DADOS DE LINKS (Para o Buscador)
     const linksProdutos = {
-        "S1": "https://s.shopee.com.br/5fmNYHnfuD",
-        "S2": "https://s.shopee.com.br/40e9ZNCvsV",
-        "S3": "https://s.shopee.com.br/2BCVO3w5jU",
-        "S4": "https://s.shopee.com.br/4AxZlpYVkV",
-        "S5": "https://s.shopee.com.br/8V6YvrCLJL",
-        "S6": "https://s.shopee.com.br/7VE1k6RKSC",
-        "S7": "https://s.shopee.com.br/9KffvZ8mbC",
-        "S8": "https://s.shopee.com.br/5L9XALXygW",
-        "S9": "https://s.shopee.com.br/7pqs92UpvA",
-        "S10": "https://s.shopee.com.br/3LOSmoGIkq",
-        "S11": "https://s.shopee.com.br/2qSCH4Xw0I",
-        "S12": "https://s.shopee.com.br/9zvMoKhgCG",
-        "S13": "https://s.shopee.com.br/7AbBRI9o4a",
-        "S14": "https://s.shopee.com.br/3g1JH0jtQu",
-        "S15": "https://s.shopee.com.br/180uPqR2j",
-        "S16": "https://s.shopee.com.br/8fPzEOvD1w",
-        "S17": "https://s.shopee.com.br/8V6Z2A8b1J",
-        "S18": "https://s.shopee.com.br/gNhhvoo5l",
-        "S19": "https://s.shopee.com.br/AKYDDnybD9",
-        "S20": "https://s.shopee.com.br/3qKjTtzVyR",
-        "S21": "https://s.shopee.com.br/50Wgs9XPou",
-        "S22": "https://s.shopee.com.br/7KubeXH9wC",
-        "S23": "https://s.shopee.com.br/5q5nrpCrJB",
-        "S24": "https://s.shopee.com.br/60PE4B2DFB",
-        "S25": "https://s.shopee.com.br/70HlGAkws5",
-        "S26": "https://s.shopee.com.br/7KubepsEIa",
-        "S27": "https://s.shopee.com.br/AAEn26WgSn",
-        "S28": "https://s.shopee.com.br/6L24T8A3mR",
-        "S29": "https://s.shopee.com.br/7Kubf1NBqB",
-        "S30": "https://s.shopee.com.br/7VE1rNXzc7",
-        "S31": "https://s.shopee.com.br/8Kn8r0fwIn",
-        "S32": "https://s.shopee.com.br/1gGEuoLuf8",
-        "S33": "https://s.shopee.com.br/5Aq75IcAu8",
-        "S34": "https://s.shopee.com.br/qh7vP7U8W",
-        "S35": "https://s.shopee.com.br/W4HWtbkOe",
-        "S36": "https://s.shopee.com.br/8Kn8rKu46U",
-        "S37": "https://s.shopee.com.br/qh7vhjApM",
-        "S38": "https://s.shopee.com.br/9zvMqks25N",
-        "S39": "https://s.shopee.com.br/6VLUgPtvan",
-        "S40": "https://s.shopee.com.br/4ftqV5UYNs",
-        "S41": "https://s.shopee.com.br/7Kubg2oKcc",
-        "S42": "https://s.shopee.com.br/30lcWAbf90",
-        "S43": "https://s.shopee.com.br/6AieI2OOZC",
-        "S44": "https://s.shopee.com.br/7fXS4rqbuv",
-
-        // Exemplos para você preencher depois nas outras plataformas:
-        "A1": "https://amazon.com.br/seu-link-afiliado-aqui",
-        "M1": "https://mercadolivre.com/seu-link-afiliado-aqui",
-        "G1": "https://magazineluiza.com.br/seu-link-afiliado-aqui"
+        "S1": "https://s.shopee.com.br/5fmNYHnfuD", "S2": "https://s.shopee.com.br/40e9ZNCvsV",
+        "S3": "https://s.shopee.com.br/2BCVO3w5jU", "S4": "https://s.shopee.com.br/4AxZlpYVkV",
+        "S5": "https://s.shopee.com.br/8V6YvrCLJL", "S6": "https://s.shopee.com.br/7VE1k6RKSC",
+        "S7": "https://s.shopee.com.br/9KffvZ8mbC", "S8": "https://s.shopee.com.br/5L9XALXygW",
+        "S9": "https://s.shopee.com.br/7pqs92UpvA", "S10": "https://s.shopee.com.br/3LOSmoGIkq",
+        "S11": "https://s.shopee.com.br/2qSCH4Xw0I", "S12": "https://s.shopee.com.br/9zvMoKhgCG",
+        "S13": "https://s.shopee.com.br/7AbBRI9o4a", "S14": "https://s.shopee.com.br/3g1JH0jtQu",
+        "S15": "https://s.shopee.com.br/180uPqR2j",  "S16": "https://s.shopee.com.br/8fPzEOvD1w",
+        "S17": "https://s.shopee.com.br/8V6Z2A8b1J", "S18": "https://s.shopee.com.br/gNhhvoo5l",
+        "S19": "https://s.shopee.com.br/AKYDDnybD9", "S20": "https://s.shopee.com.br/3qKjTtzVyR",
+        "S21": "https://s.shopee.com.br/50Wgs9XPou", "S22": "https://s.shopee.com.br/7KubeXH9wC",
+        "S23": "https://s.shopee.com.br/5q5nrpCrJB", "S24": "https://s.shopee.com.br/60PE4B2DFB",
+        "S25": "https://s.shopee.com.br/70HlGAkws5", "S26": "https://s.shopee.com.br/7KubepsEIa",
+        "S27": "https://s.shopee.com.br/AAEn26WgSn", "S28": "https://s.shopee.com.br/6L24T8A3mR",
+        "S29": "https://s.shopee.com.br/7Kubf1NBqB", "S30": "https://s.shopee.com.br/7VE1rNXzc7",
+        "S31": "https://s.shopee.com.br/8Kn8r0fwIn", "S32": "https://s.shopee.com.br/1gGEuoLuf8",
+        "S33": "https://s.shopee.com.br/5Aq75IcAu8", "S34": "https://s.shopee.com.br/qh7vP7U8W",
+        "S35": "https://s.shopee.com.br/W4HWtbkOe",   "S36": "https://s.shopee.com.br/8Kn8rKu46U",
+        "S37": "https://s.shopee.com.br/qh7vhjApM",  "S38": "https://s.shopee.com.br/9zvMqks25N",
+        "S39": "https://s.shopee.com.br/6VLUgPtvan", "S40": "https://s.shopee.com.br/4ftqV5UYNs",
+        "S41": "https://s.shopee.com.br/7Kubg2oKcc", "S42": "https://s.shopee.com.br/30lcWAbf90",
+        "S43": "https://s.shopee.com.br/6AieI2OOZC", "S44": "https://s.shopee.com.br/7fXS4rqbuv",
+        "S45": "https://s.shopee.com.br/30lgRFLiyb",
+        
+        // Novo Macacão cadastrado na busca!
+        "S46": "https://s.shopee.com.br/9zvQpuwXPV"
     };
 
-    // 2. LINKS DAS VITRINES DAS LOJAS (Basta mudar pelos seus perfis oficiais)
-    function abrirVitrine(loja) {
-        const vitrines = {
-            'shopee': 'https://shope.ee/SUA_VITRINE_COMPLETA_AQUI',
-            'amazon': 'https://www.amazon.com.br/shop/SEU_USER_AQUI',
-            'mercadolivre': 'https://perfil.mercadolivre.com.br/SEU_USER_AQUI',
-            'magalu': 'https://www.magazinevoce.com.br/magazineSEUUSER/'
-        };
-        
-        // Abre a vitrine em uma nova aba limpa
-        window.open(vitrines[loja], '_blank');
-    }
-
-    // 3. SISTEMA DE BUSCA INTELIGENTE POR NOVA ABA (Pula a tela de cookies)
     function buscarAcao() {
         const valorInput = document.getElementById('inputCodigo').value.trim().toUpperCase();
         const msgErro = document.getElementById('msgErro');
@@ -400,28 +384,18 @@
             msgSucesso.innerText = "Redirecionando para a loja... 🛍️";
             msgSucesso.style.display = "block";
             
-            // Abre o link direto em uma nova janela limpa para forçar a abertura do App
             setTimeout(function() {
                 const novaAba = window.open(linksProdutos[valorInput], '_blank');
-                if (novaAba) {
-                    novaAba.focus();
-                } else {
-                    // Caso o celular trave o pop-up, faz o plano B na mesma página
-                    window.location.href = linksProdutos[valorInput];
-                }
+                if (novaAba) { novaAba.focus(); } else { window.location.href = linksProdutos[valorInput]; }
             }, 600);
         } else {
             msgSucesso.style.display = "none";
-            msgErro.innerText = "Código não encontrado! Use a letra correspondente (Ex: S1, A5...)";
             msgErro.style.display = "block";
         }
     }
 
-    // Ativar busca automática com o "Enter" do teclado
     document.getElementById('inputCodigo').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            buscarAcao();
-        }
+        if (e.key === 'Enter') { buscarAcao(); }
     });
 </script>
 
