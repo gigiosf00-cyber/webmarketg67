@@ -203,7 +203,7 @@
 
     <!-- Buscador Geral -->
     <div class="search-container">
-        <input type="text" id="inputCodigo" placeholder="Ex: S1, S45, S46..." autocomplete="off">
+        <input type="text" id="inputCodigo" placeholder="Ex: S1, S25, S50..." autocomplete="off">
         <button class="btn-search" onclick="buscarAcao()">Buscar</button>
     </div>
 
@@ -218,32 +218,63 @@
 </div>
 
 <script>
-    // BANCO DE DADOS OFICIAL (Onde você cadastrará todos os links futuros)
+    // BANCO DE DADOS ATUALIZADO (S1 até S52)
     const linksProdutos = {
-        "S1": "https://s.shopee.com.br/5fmNYHnfuD", "S2": "https://s.shopee.com.br/40e9ZNCvsV",
-        "S3": "https://s.shopee.com.br/2BCVO3w5jU", "S4": "https://s.shopee.com.br/4AxZlpYVkV",
-        "S5": "https://s.shopee.com.br/8V6YvrCLJL", "S6": "https://s.shopee.com.br/7VE1k6RKSC",
-        "S7": "https://s.shopee.com.br/9KffvZ8mbC", "S8": "https://s.shopee.com.br/5L9XALXygW",
-        "S9": "https://s.shopee.com.br/7pqs92UpvA", "S10": "https://s.shopee.com.br/3LOSmoGIkq",
-        "S11": "https://s.shopee.com.br/2qSCH4Xw0I", "S12": "https://s.shopee.com.br/9zvMoKhgCG",
-        "S13": "https://s.shopee.com.br/7AbBRI9o4a", "S14": "https://s.shopee.com.br/3g1JH0jtQu",
-        "S15": "https://s.shopee.com.br/180uPqR2j",  "S16": "https://s.shopee.com.br/8fPzEOvD1w",
-        "S17": "https://s.shopee.com.br/8V6Z2A8b1J", "S18": "https://s.shopee.com.br/gNhhvoo5l",
-        "S19": "https://s.shopee.com.br/AKYDDnybD9", "S20": "https://s.shopee.com.br/3qKjTtzVyR",
-        "S21": "https://s.shopee.com.br/50Wgs9XPou", "S22": "https://s.shopee.com.br/7KubeXH9wC",
-        "S23": "https://s.shopee.com.br/5q5nrpCrJB", "S24": "https://s.shopee.com.br/60PE4B2DFB",
-        "S25": "https://s.shopee.com.br/70HlGAkws5", "S26": "https://s.shopee.com.br/7KubepsEIa",
-        "S27": "https://s.shopee.com.br/AAEn26WgSn", "S28": "https://s.shopee.com.br/6L24T8A3mR",
-        "S29": "https://s.shopee.com.br/7Kubf1NBqB", "S30": "https://s.shopee.com.br/7VE1rNXzc7",
-        "S31": "https://s.shopee.com.br/8Kn8r0fwIn", "S32": "https://s.shopee.com.br/1gGEuoLuf8",
-        "S33": "https://s.shopee.com.br/5Aq75IcAu8", "S34": "https://s.shopee.com.br/qh7vP7U8W",
-        "S35": "https://s.shopee.com.br/W4HWtbkOe",   "S36": "https://s.shopee.com.br/8Kn8rKu46U",
-        "S37": "https://s.shopee.com.br/qh7vhjApM",  "S38": "https://s.shopee.com.br/9zvMqks25N",
-        "S39": "https://s.shopee.com.br/6VLUgPtvan", "S40": "https://s.shopee.com.br/4ftqV5UYNs",
-        "S41": "https://s.shopee.com.br/7Kubg2oKcc", "S42": "https://s.shopee.com.br/30lcWAbf90",
-        "S43": "https://s.shopee.com.br/6AieI2OOZC", "S44": "https://s.shopee.com.br/7fXS4rqbuv",
-        "S45": "https://s.shopee.com.br/30lgRFLiyb",
-        "S46": "https://s.shopee.com.br/9zvQpuwXPV"
+        // Seção Iniciais / Novos adicionados
+        "S1": "https://s.shopee.com.br/5fmNYHnfuD", // calca jeans
+        "S2": "https://s.shopee.com.br/40e9ZNCvsV", // conjunto blazer
+        "S3": "https://s.shopee.com.br/2BCVO3w5jU", // blazer casequeto
+        "S4": "https://s.shopee.com.br/4AxZlpYVkV", // calca cos alto legging
+        "S5": "https://s.shopee.com.br/8V6YvrCLJL", // conjunto 3 peças com blazer
+        "S6": "https://s.shopee.com.br/7VE1k6RKSC", // vestido manga lg canelado
+        "S7": "https://s.shopee.com.br/9KffvZ8mbC", // blusa social mg 3/4
+        "S8": "https://s.shopee.com.br/3LOSmoGIkq", // conj lanzinha 3 pecas
+        "S9": "https://s.shopee.com.br/1BK6DxC5CH", // vestido Longo gola alta
+        "S10": "https://s.shopee.com.br/7AbBRI9o4a", // jaqueta cotele
+        "S11": "https://s.shopee.com.br/3g1JH0jtQu", // macacão Longo virginia
+        "S12": "https://s.shopee.com.br/180uPqR2j",  // conj casaco croped mg longa
+        "S13": "https://s.shopee.com.br/8fPzEOvD1w", // conj blazer premium
+        "S14": "https://s.shopee.com.br/8V6Z2A8b1J", // conj vestido c casaco
+        "S15": "https://s.shopee.com.br/gNhhvoo5l",  // Jaqueta esportiva dry fit
+        "S16": "https://s.shopee.com.br/AKYDDnybD9", // jaquetinha esportiva solar
+        "S17": "https://s.shopee.com.br/3qKjTtzVyR", // kit 3 blusas mg longa
+        "S18": "https://s.shopee.com.br/50Wgs9XPou", // vestido lg jeans lg
+        "S19": "https://s.shopee.com.br/7KubeXH9wC", // blusa Tricô losango
+        "S20": "https://s.shopee.com.br/5q5nrpCrJB", // blusa mg longa bicolor
+        "S21": "https://s.shopee.com.br/60PE4B2DFB", // jaqueta de couro premium
+        "S22": "https://s.shopee.com.br/70HlGAkws5", // vestido lg alcinha
+        "S23": "https://s.shopee.com.br/7KubepsEIa", // cardigan tricot lg
+        "S24": "https://s.shopee.com.br/AAEn26WgSn", // conj lanzinha lg cadaco_pantalona
+        "S25": "https://s.shopee.com.br/6L24T8A3mR", // jaqueta croped fitns
+        "S26": "https://s.shopee.com.br/7Kubf1NBqB", // casaco tricot xadrez
+        "S27": "https://s.shopee.com.br/7VE1rNXzc7", // cardigan kimono
+        "S28": "https://s.shopee.com.br/1gGEuoLuf8", // moleton masc com Capuz
+        "S29": "https://s.shopee.com.br/5Aq75IcAu8", // vestido midi canelado
+        "S30": "https://s.shopee.com.br/qh7vP7U8W",  // vestido tricot elegante
+        "S31": "https://s.shopee.com.br/W4HWtbkOe",  // cardigan tricot botão dourado
+        "S32": "https://s.shopee.com.br/8Kn8rKu46U", // pijama femin felpudo xadrez
+        "S33": "https://s.shopee.com.br/9zvMqks25N", // casaco teddy com zíper
+        "S34": "https://s.shopee.com.br/6VLUgPtvan", // blusa Tricô delicada
+        "S35": "https://s.shopee.com.br/4ftqV5UYNs", // sueter tricot
+        "S36": "https://s.shopee.com.br/7Kubg2oKcc", // bota coturno tratorado
+        "S37": "https://s.shopee.com.br/30lcWAbf90", // body mg longa
+        "S38": "https://s.shopee.com.br/7fXS4rqbuv", // vestido canelado gola transpassada
+        "S39": "https://s.shopee.com.br/6L292lz8Ol", // calca cos alto
+        "S40": "https://s.shopee.com.br/9AMKQaHOoX", // vestido camurca tubo
+        "S41": "https://s.shopee.com.br/7KughZrOKz", // conj feminino moleton moletinho
+        "S42": "https://s.shopee.com.br/2LW0kx9Pzp", // kit e pares bota xano enrugado
+        "S43": "https://s.shopee.com.br/3B57kpsp0y", // Bota luniss camursa suede cano alto
+        "S44": "https://s.shopee.com.br/7AbGbRuXGM", // bota cano Longo com salto estilosa
+        "S45": "https://s.shopee.com.br/3g1QMaNIar", // vest fem curto mg longa envelope
+        
+        // Novos Lotes de Vídeos cadastrados na sequência lógica
+        "S46": "https://s.shopee.com.br/70HpDRKLTD", // calca wide leg pantalona
+        "S47": "https://s.shopee.com.br/9fIaQg9Mq8", // capas almofadas
+        "S48": "https://s.shopee.com.br/W4LW7RzHZ",  // mesa retrátil de parede multiuso
+        "S49": "https://s.shopee.com.br/9zvQpuwXPV", // macacão fitness poliamida
+        "S50": "https://s.shopee.com.br/gNlj3SEfa",  // tabua de corte com encaixe
+        "S51": "https://s.shopee.com.br/6VLYgLEVWa", // kit 2 pecas carregador sacola
+        "S52": "https://s.shopee.com.br/W4LXzpBIy"   // calca jeans super lipo sawary
     };
 
     function buscarAcao() {
