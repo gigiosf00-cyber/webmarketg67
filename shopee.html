@@ -54,3 +54,58 @@
 <div class="card" data-code="s8"><img src="S8.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S8</div><h3 class="title">Calça Jeans</h3><div class="actions"><a href="https://s.shopee.com.br/5fmNYHnfuD" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/9AMNf03erB" class="btn-card btn-video">VÍDEO</a></div></div></div>
 <div class="card" data-code="s9"><img src="S9.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S9</div><h3 class="title">Conjunto Blazer</h3><div class="actions"><a href="https://s.shopee.com.br/40e9ZNCvsV" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/5AqEttZvPe" class="btn-card btn-video">VÍDEO</a></div></div></div>
 <div class="card" data-code="s10"><img src="S10.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S10</div><h3 class="title">Blazer Casequeto</h3><div class="actions"><a href="https://s.shopee.com.br/2BCVO3w5jU" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/2g8tvzjfgq" class="btn-card btn-video">VÍDEO</a></div></div></div>
+<!-- CONTINUAÇÃO DOS PRODUTOS S7 EM DIANTE -->
+    <div class="card" data-code="s7"><img src="S7.jpg" onerror="this.src='https://placehold.co/400?text=S7'"><div class="card-content"><div class="card-ref">#S7</div><h3 class="title">Calça Jeans Super Lipo</h3><div class="actions"><a href="https://s.shopee.com.br/W4LXzpBIy" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/W4Ld9VuYB" class="btn-card btn-video">VÍDEO</a></div></div></div>
+</div>
+
+<script>
+async function colarCodigo(){
+    try{
+        const texto = await navigator.clipboard.readText();
+        document.getElementById("busca").value = texto.trim().toUpperCase();
+        executarBusca();
+    }catch(e){
+        alert("Permita o acesso à área de transferência para colar.");
+    }
+}
+
+function executarBusca(){
+    const codigo = document.getElementById("busca").value.trim().toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    const msgErro = document.getElementById("msgErro");
+    const btnLimpar = document.getElementById("btnLimpar");
+    let encontrou = false;
+
+    cards.forEach(card => {
+        if(card.dataset.code === codigo){
+            card.style.display = "flex";
+            encontrou = true;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if(encontrou){
+        msgErro.style.display = "none";
+        btnLimpar.style.display = "block";
+    } else {
+        msgErro.style.display = "block";
+        btnLimpar.style.display = "none";
+    }
+}
+
+function limparFiltro(){
+    document.querySelectorAll(".card").forEach(card => {
+        card.style.display = "flex";
+    });
+    document.getElementById("busca").value = "";
+    document.getElementById("btnLimpar").style.display = "none";
+    document.getElementById("msgErro").style.display = "none";
+}
+
+document.getElementById("busca").addEventListener("keypress", function(e){
+    if(e.key === "Enter") executarBusca();
+});
+</script>
+</body>
+</html>
