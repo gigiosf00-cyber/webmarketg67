@@ -16,7 +16,7 @@
         .header h1 { font-size:24px; font-weight:800; }
         .header span { color:var(--primary); }
         .grid { display:flex; flex-direction:column; gap:14px; }
-        .card { background:#fff; border-radius:16px; padding:14px; border:1px solid #e2e8f0; }
+        .card { background:#fff; border-radius:16px; padding:14px; border:1px solid #e2e8f0; display: block; }
         .card-header { font-size:11px; font-weight:800; color:#94a3b8; margin-bottom:8px; }
         .card-header span { color:var(--primary); }
         .title { font-size:14px; font-weight:700; margin-bottom:12px; }
@@ -30,10 +30,29 @@
 <div class="container">
     <a href="index.html" class="btn-voltar"><i class="fas fa-arrow-left"></i> Voltar</a>
     <div class="header"><h1>Vitrine <span>Shopee</span></h1></div>
+    
     <div class="grid">
-        <!-- O código dos 53 produtos já está aqui dentro no arquivo para download, 
-             estou colando aqui o link direto para você baixar e não precisar 
-             copiar um texto gigante! -->
+        <!-- Exemplo de Produto S46 -->
+        <div class="card">
+            <div class="card-header">REF: <span>#S46</span></div>
+            <h3 class="title">Calça Cós Alto Legging</h3>
+            <div class="actions">
+                <a href="https://s.shopee.com.br/6L292lz8Ol" target="_blank" class="btn btn-buy"><i class="fas fa-shopping-cart"></i> COMPRAR</a>
+                <a href="https://s.shopee.com.br/20tDg59riG" target="_blank" class="btn btn-video"><i class="fas fa-play"></i> VÍDEO</a>
+            </div>
+        </div>
+
+        <!-- Exemplo de Produto S1 -->
+        <div class="card">
+            <div class="card-header">REF: <span>#S1</span></div>
+            <h3 class="title">Calça Wide Leg Pantalona</h3>
+            <div class="actions">
+                <a href="https://s.shopee.com.br/70HpDRKLTD" target="_blank" class="btn btn-buy"><i class="fas fa-shopping-cart"></i> COMPRAR</a>
+                <a href="https://s.shopee.com.br/8ATmd4ijj3" target="_blank" class="btn btn-video"><i class="fas fa-play"></i> VÍDEO</a>
+            </div>
+        </div>
+        
+        <!-- Adicione os outros cards seguindo esse modelo -->
     </div>
 </div>
 </body>
