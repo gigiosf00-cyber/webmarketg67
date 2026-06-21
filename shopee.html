@@ -36,35 +36,30 @@
 <div class="header"><h1>Vitrine <span>Shopee</span></h1></div>
 <div class="search-wrap">
     <div class="search-bar">
-        <input type="text" id="busca" placeholder="Digite o código (Ex: S1)">
+        <input type="text" id="busca" placeholder="EX: S1">
         <button class="btn-buscar" onclick="executarBusca()"><i class="fas fa-search"></i></button>
     </div>
     <button class="btn-colar" onclick="colarCodigo()"><i class="fas fa-paste"></i> 📋 COLAR CÓDIGO</button>
     <button id="btnLimpar" class="btn-limpar" onclick="limparFiltro()">MOSTRAR TODOS OS PRODUTOS</button>
-    <div id="msgErro">Código S não encontrado!</div>
+    <div id="msgErro">Código não encontrado!</div>
 </div>
 <div class="grid" id="grid">
-<div class="card" data-code="s1"><img src="S1.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S1</div><h3 class="title">Calça Wide Leg Pantalona</h3><div class="actions"><a href="https://s.shopee.com.br/70HpDRKLTD" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/8ATmd4ijj3" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s2"><img src="S2.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S2</div><h3 class="title">Capas Almofadas</h3><div class="actions"><a href="https://s.shopee.com.br/9fIaQg9Mq8" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/7EV5qna1Qj" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s3"><img src="S3.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S3</div><h3 class="title">Mesa Retrátil de Parede</h3><div class="actions"><a href="https://s.shopee.com.br/W4LW7RzHZ" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/4AxdswPCyc" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s4"><img src="S4.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S4</div><h3 class="title">Macacão Fitness</h3><div class="actions"><a href="https://s.shopee.com.br/9zvQpuwXPV" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/BRV7soQ6M" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s5"><img src="S5.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S5</div><h3 class="title">Tábua de Corte</h3><div class="actions"><a href="https://s.shopee.com.br/gNlj3SEfa" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/60PI4tCgzB" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s6"><img src="S6.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S6</div><h3 class="title">Kit Pegador de Sacola</h3><div class="actions"><a href="https://s.shopee.com.br/6VLYgLEVWa" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/1gGIvUb37i" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s7"><img src="S7.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S7</div><h3 class="title">Calça Jeans Super Lipo</h3><div class="actions"><a href="https://s.shopee.com.br/W4LXzpBIy" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/W4Ld9VuYB" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s8"><img src="S8.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S8</div><h3 class="title">Calça Jeans</h3><div class="actions"><a href="https://s.shopee.com.br/5fmNYHnfuD" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/9AMNf03erB" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s9"><img src="S9.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S9</div><h3 class="title">Conjunto Blazer</h3><div class="actions"><a href="https://s.shopee.com.br/40e9ZNCvsV" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/5AqEttZvPe" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<div class="card" data-code="s10"><img src="S10.jpg" onerror="this.style.display='none'"><div class="card-content"><div class="card-ref">#S10</div><h3 class="title">Blazer Casequeto</h3><div class="actions"><a href="https://s.shopee.com.br/2BCVO3w5jU" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/2g8tvzjfgq" class="btn-card btn-video">VÍDEO</a></div></div></div>
-<!-- CONTINUAÇÃO DOS PRODUTOS S7 EM DIANTE -->
+    <div class="card" data-code="s1"><img src="S1.jpg" onerror="this.src='https://placehold.co/400?text=S1'"><div class="card-content"><div class="card-ref">#S1</div><h3 class="title">Calça Wide Leg Pantalona</h3><div class="actions"><a href="https://s.shopee.com.br/70HpDRKLTD" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/8ATmd4ijj3" class="btn-card btn-video">VÍDEO</a></div></div></div>
+    <div class="card" data-code="s2"><img src="S2.jpg" onerror="this.src='https://placehold.co/400?text=S2'"><div class="card-content"><div class="card-ref">#S2</div><h3 class="title">Capas Almofadas</h3><div class="actions"><a href="https://s.shopee.com.br/9fIaQg9Mq8" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/7EV5qna1Qj" class="btn-card btn-video">VÍDEO</a></div></div></div>
+    <div class="card" data-code="s3"><img src="S3.jpg" onerror="this.src='https://placehold.co/400?text=S3'"><div class="card-content"><div class="card-ref">#S3</div><h3 class="title">Mesa Retrátil de Parede</h3><div class="actions"><a href="https://s.shopee.com.br/W4LW7RzHZ" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/4AxdswPCyc" class="btn-card btn-video">VÍDEO</a></div></div></div>
+    <div class="card" data-code="s4"><img src="S4.jpg" onerror="this.src='https://placehold.co/400?text=S4'"><div class="card-content"><div class="card-ref">#S4</div><h3 class="title">Macacão Fitness</h3><div class="actions"><a href="https://s.shopee.com.br/9zvQpuwXPV" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/BRV7soQ6M" class="btn-card btn-video">VÍDEO</a></div></div></div>
+    <div class="card" data-code="s5"><img src="S5.jpg" onerror="this.src='https://placehold.co/400?text=S5'"><div class="card-content"><div class="card-ref">#S5</div><h3 class="title">Tábua de Corte</h3><div class="actions"><a href="https://s.shopee.com.br/gNlj3SEfa" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/60PI4tCgzB" class="btn-card btn-video">VÍDEO</a></div></div></div>
+    <div class="card" data-code="s6"><img src="S6.jpg" onerror="this.src='https://placehold.co/400?text=S6'"><div class="card-content"><div class="card-ref">#S6</div><h3 class="title">Kit Pegador de Sacola</h3><div class="actions"><a href="https://s.shopee.com.br/6VLYgLEVWa" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/1gGIvUb37i" class="btn-card btn-video">VÍDEO</a></div></div></div>
     <div class="card" data-code="s7"><img src="S7.jpg" onerror="this.src='https://placehold.co/400?text=S7'"><div class="card-content"><div class="card-ref">#S7</div><h3 class="title">Calça Jeans Super Lipo</h3><div class="actions"><a href="https://s.shopee.com.br/W4LXzpBIy" class="btn-card btn-buy">COMPRAR</a><a href="https://s.shopee.com.br/W4Ld9VuYB" class="btn-card btn-video">VÍDEO</a></div></div></div>
 </div>
 
 <script>
 async function colarCodigo(){
-    try{
+    try {
         const texto = await navigator.clipboard.readText();
         document.getElementById("busca").value = texto.trim().toUpperCase();
         executarBusca();
-    }catch(e){
+    } catch(e) {
         alert("Permita o acesso à área de transferência para colar.");
     }
 }
