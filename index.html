@@ -6,79 +6,21 @@
     <title>WEBMARKETG67 | Central de Achadinhos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --background: #f8fafc;
-            --card-bg: #ffffff;
-            --shopee: #ee4d2d;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-        }
-
+        :root { --background: #f8fafc; --card-bg: #ffffff; --shopee: #ee4d2d; --text-main: #0f172a; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-
-        body {
-            background-color: var(--background);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 15px;
-        }
-
-        .container {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 400px;
-            border-radius: 24px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-        }
-
+        body { background-color: var(--background); color: var(--text-main); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 15px; }
+        .container { background: var(--card-bg); width: 100%; max-width: 400px; border-radius: 24px; padding: 30px 20px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
         .logo { font-size: 26px; font-weight: 800; margin-bottom: 15px; }
         .logo span { color: var(--shopee); }
-
-        /* BUSCADOR NA HOME */
-        .search-box {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 18px;
-            margin-bottom: 25px;
-            border: 2px solid #e2e8f0;
-        }
-        .search-box p { font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--text-main); }
+        .search-box { background: #f1f5f9; padding: 15px; border-radius: 18px; margin-bottom: 25px; border: 2px solid #e2e8f0; }
+        .search-box p { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
         .input-group { position: relative; }
-        .input-group input {
-            width: 100%; padding: 12px 15px 12px 40px;
-            border-radius: 12px; border: 1px solid #cbd5e1;
-            outline: none; font-size: 15px;
-        }
+        .input-group input { width: 100%; padding: 12px 15px 12px 40px; border-radius: 12px; border: 1px solid #cbd5e1; outline: none; font-size: 15px; }
         .input-group i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--shopee); }
-        .btn-search {
-            width: 100%; background: var(--shopee); color: white;
-            border: none; padding: 12px; border-radius: 12px;
-            margin-top: 10px; font-weight: 700; cursor: pointer;
-        }
-
-        .divider { height: 1px; background: #e2e8f0; margin: 20px 0; position: relative; }
-        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; font-size: 12px; color: #94a3b8; }
-
-        .market-buttons { display: flex; flex-direction: column; gap: 12px; }
-
-        .btn-market {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 15px 18px; border-radius: 14px;
-            text-decoration: none; font-weight: 700; font-size: 15px;
-            transition: 0.2s;
-        }
-        .btn-market:hover { transform: scale(1.02); opacity: 0.9; }
-
-        .shopee { background: var(--shopee); color: white; }
-        .mercado-livre { background: #fff159; color: #333; }
-        .amazon { background: #232f3e; color: white; }
+        .btn-search { width: 100%; background: var(--shopee); color: white; border: none; padding: 15px; border-radius: 12px; margin-top: 10px; font-weight: 800; cursor: pointer; font-size: 16px; }
+        .market-buttons { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .btn-market { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; border-radius: 14px; text-decoration: none; font-weight: 700; font-size: 15px; background: #ee4d2d; color: white; }
     </style>
 </head>
 <body>
@@ -86,31 +28,18 @@
 <div class="container">
     <div class="logo"><i class="fas fa-shopping-bag"></i> SHOP<span>G67</span></div>
     
-    <!-- BUSCADOR POR CÓDIGO -->
     <div class="search-box">
-        <p>Já tem o código do produto?</p>
+        <p>Digite o código do Pinterest:</p>
         <div class="input-group">
             <i class="fas fa-search"></i>
-            <input type="text" id="homeSearch" placeholder="Ex: 015">
+            <input type="text" id="homeSearch" placeholder="Ex: 001">
         </div>
-        <button class="btn-search" onclick="irParaProduto()">BUSCAR PRODUTO</button>
+        <button class="btn-search" onclick="irParaProduto()">VER PRODUTO NA SHOPEE</button>
     </div>
 
-    <div class="divider"><span>OU NAVEGUE POR LOJA</span></div>
-
     <div class="market-buttons">
-        <a href="shopee.html" class="btn-market shopee">
-            <span><i class="fas fa-store"></i> Vitrine Shopee</span>
-            <i class="fas fa-chevron-right"></i>
-        </a>
-
-        <a href="#" class="btn-market mercado-livre">
-            <span><i class="fas fa-box"></i> Mercado Livre (Breve)</span>
-            <i class="fas fa-chevron-right"></i>
-        </a>
-
-        <a href="#" class="btn-market amazon">
-            <span><i class="fab fa-amazon"></i> Amazon (Breve)</span>
+        <a href="shopee.html" class="btn-market">
+            <span><i class="fas fa-store"></i> Ver Vitrine Completa</span>
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
@@ -119,14 +48,36 @@
 <script>
     function irParaProduto() {
         const code = document.getElementById('homeSearch').value.trim();
-        if (code !== "") {
-            // Isso envia o usuário para a página da shopee já filtrando pelo código
-            window.location.href = "shopee.html?id=" + code;
-        } else {
-            alert("Por favor, digite um código!");
-        }
+        const links = {
+            "001": "https://s.shopee.com.br/70HpDRKLTD", "002": "https://s.shopee.com.br/9fIaQg9Mq8",
+            "003": "https://s.shopee.com.br/W4LW7RzHZ", "004": "https://s.shopee.com.br/9zvQpuwXPV",
+            "005": "https://s.shopee.com.br/gNlj3SEfa", "006": "https://s.shopee.com.br/6VLYgLEVWa",
+            "007": "https://s.shopee.com.br/W4LXzpBIy", "008": "https://s.shopee.com.br/5fmNYHnfuD",
+            "009": "https://s.shopee.com.br/40e9ZNCvsV", "010": "https://s.shopee.com.br/2BCVO3w5jU",
+            "011": "https://s.shopee.com.br/4AxZlpYVkV", "012": "https://s.shopee.com.br/8V6YvrCLJL",
+            "013": "https://s.shopee.com.br/7VE1k6RKSC", "014": "https://s.shopee.com.br/9KffvZ8mbC",
+            "015": "https://s.shopee.com.br/3LOSmoGIkq", "016": "https://s.shopee.com.br/1BK6DxC5CH",
+            "017": "https://s.shopee.com.br/7AbBRI9o4a", "018": "https://s.shopee.com.br/3g1JH0jtQu",
+            "019": "https://s.shopee.com.br/180uPqR2j", "020": "https://s.shopee.com.br/8fPzEOvD1w",
+            "021": "https://s.shopee.com.br/8V6Z2A8b1J", "022": "https://s.shopee.com.br/gNhhvoo5l",
+            "023": "https://s.shopee.com.br/AKYDDnybD9", "024": "https://s.shopee.com.br/3qKjTtzVyR",
+            "025": "https://s.shopee.com.br/50Wgs9XPou", "026": "https://s.shopee.com.br/7KubeXH9wC",
+            "027": "https://s.shopee.com.br/5q5nrpCrJB", "028": "https://s.shopee.com.br/60PE4B2DFB",
+            "029": "https://s.shopee.com.br/70HlGAkws5", "030": "https://s.shopee.com.br/7KubepsEIa",
+            "031": "https://s.shopee.com.br/AAEn26WgSn", "032": "https://s.shopee.com.br/6L24T8A3mR",
+            "033": "https://s.shopee.com.br/7Kubf1NBqB", "034": "https://s.shopee.com.br/7VE1rNXzc7",
+            "035": "https://s.shopee.com.br/1gGEuoLuf8", "036": "https://s.shopee.com.br/5Aq75IcAu8",
+            "037": "https://s.shopee.com.br/qh7vP7U8W", "038": "https://s.shopee.com.br/W4HWtbkOe",
+            "039": "https://s.shopee.com.br/8Kn8rKu46U", "040": "https://s.shopee.com.br/9zvMqks25N",
+            "041": "https://s.shopee.com.br/6VLUgPtvan", "042": "https://s.shopee.com.br/4ftqV5UYNs",
+            "043": "https://s.shopee.com.br/7Kubg2oKcc", "044": "https://s.shopee.com.br/30lcWAbf90",
+            "045": "https://s.shopee.com.br/7fXS4rqbuv", "046": "https://s.shopee.com.br/6L292lz8Ol",
+            "047": "https://s.shopee.com.br/1BK3Qq9fPJ", "048": "https://s.shopee.com.br/7AbGbRuXGM",
+            "049": "https://s.shopee.com.br/3g1QMaNIar"
+        };
+        if (links[code]) { window.location.href = links[code]; } 
+        else { alert("Código não encontrado!"); }
     }
 </script>
-
 </body>
 </html>
