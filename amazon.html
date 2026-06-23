@@ -1,1 +1,108 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitrine Amazon | WEBMARKETG67</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --amazon-blue: #232f3e; 
+            --amazon-orange: #ff9900; 
+            --bg: #f3f3f3; 
+            --text: #111; 
+        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
+        
+        .header { background: var(--amazon-blue); padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 20px; font-weight: 800; }
+        .header span { color: var(--amazon-orange); }
+        
+        .search-container { padding: 15px; max-width: 600px; margin: 0 auto; }
+        #searchInput { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #ddd; outline: none; font-size: 16px; transition: 0.3s; }
+        #searchInput:focus { border-color: var(--amazon-orange); box-shadow: 0 0 8px rgba(255, 153, 0, 0.2); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; padding: 12px; max-width: 1200px; margin: 0 auto; }
+        
+        .card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: transform 0.2s; border: 1px solid #eee; }
+        .card:active { transform: scale(0.98); }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #fff; }
+        
+        .card-body { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; }
+        .product-id { font-size: 11px; font-weight: 800; color: #777; margin-bottom: 2px; }
+        .product-title { font-size: 13px; font-weight: 600; line-height: 1.2; height: 32px; overflow: hidden; margin-bottom: 15px; color: #111; }
+        
+        .btn-group { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        .btn { border: none; border-radius: 4px; padding: 10px 5px; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        
+        .btn-buy { background: var(--amazon-orange); color: #111; }
+        .btn-video { background: #000; color: #fff; }
+        .btn-video i { color: #fe2c55; }
+        
+        .no-results { text-align: center; padding: 50px; display: none; grid-column: 1 / -1; }
+        @media (max-width: 380px) { .grid { grid-template-columns: 1fr 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>WEBMARKET<span>G67</span> Amazon</h1>
+</div>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Busque por código (Ex: A1)..." onkeyup="filterProducts()">
+</div>
+
+<div class="grid" id="productGrid">
+
+    <!-- PRODUTO A1 -->
+    <div class="card" data-id="A1" data-title="Produto Exemplo 1">
+        <img src="img/amazon/A1.jpg" onerror="this.onerror=null; this.src='A1.jpg';" alt="A1">
+        <div class="card-body">
+            <div class="product-id">CÓD: A1</div>
+            <div class="product-title">Título do Seu Produto Amazon</div>
+            <div class="btn-group">
+                <a href="#" target="_blank" class="btn btn-video"><i class="fas fa-play-circle"></i> VÍDEO</a>
+                <a href="#" target="_blank" class="btn btn-buy"><i class="fas fa-shopping-cart"></i> VER NA AMAZON</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAGEM DE ERRO -->
+    <div id="noResults" class="no-results">
+        <h3>Nenhum produto Amazon encontrado 😕</h3>
+    </div>
+
+</div>
+
+<script>
+    function filterProducts() {
+        const input = document.getElementById('searchInput').value.toUpperCase();
+        const grid = document.getElementById('productGrid');
+        const cards = grid.getElementsByClassName('card');
+        const noResults = document.getElementById('noResults');
+        let count = 0;
+
+        for (let i = 0; i < cards.length; i++) {
+            const id = cards[i].getAttribute('data-id').toUpperCase();
+            const title = cards[i].getAttribute('data-title').toUpperCase();
+
+            // Mostra se o código ou o título combinar com a busca
+            if (id.includes(input) || title.includes(input)) {
+                cards[i].style.display = "";
+                count++;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+
+        // Se não encontrar nada, mostra a mensagem
+        noResults.style.display = count === 0 ? "block" : "none";
+    }
+</script>
+
+</body>
+</html>
