@@ -27,7 +27,7 @@
     <h1>WEBMARKET<span>67</span></h1>
     
     <div class="search-box">
-        <input type="text" id="codigoBusca" placeholder="EX: S1, A1...">
+        <input type="text" id="codigoBusca" placeholder="EX: S1, S2...">
         <button onclick="buscarProduto()">IR</button>
     </div>
 
@@ -42,18 +42,25 @@
 function buscarProduto() {
     let codigo = document.getElementById("codigoBusca").value.trim().toLowerCase();
     
-    // Lista de mapeamento (Aqui entra o destino do que for digitado)
     const destinos = {
-        // Shopee (exemplo extraído do seu arquivo)
-        "s1": "https://s.shopee.com.br/70HpDRKLTD",
-        "s2": "https://s.shopee.com.br/9fIaQg9Mq8",
-        // ... adicione os outros S's aqui ...
-        
-        // Amazon (adicione o padrão A1: link)
-        "a1": "LINK_AMAZON_1",
-        
-        // Mercado Livre (adicione o padrão m1: link)
-        "m1": "LINK_MERCADO_LIVRE_1"
+        "s1": "https://s.shopee.com.br/70HpDRKLTD", "s2": "https://s.shopee.com.br/9fIaQg9Mq8", "s3": "https://s.shopee.com.br/W4LW7RzHZ",
+        "s4": "https://s.shopee.com.br/9zvQpuwXPV", "s5": "https://s.shopee.com.br/gNlj3SEfa", "s6": "https://s.shopee.com.br/6VLYgLEVWa",
+        "s7": "https://s.shopee.com.br/W4LXzpBIy", "s8": "https://s.shopee.com.br/5fmNYHnfuD", "s9": "https://s.shopee.com.br/40e9ZNCvsV",
+        "s10": "https://s.shopee.com.br/2BCVO3w5jU", "s11": "https://s.shopee.com.br/4AxZlpYVkV", "s12": "https://s.shopee.com.br/8V6YvrCLJL",
+        "s13": "https://s.shopee.com.br/7VE1k6RKSC", "s14": "https://s.shopee.com.br/9KffvZ8mbC", "s15": "https://s.shopee.com.br/3LOSmoGIkq",
+        "s16": "https://s.shopee.com.br/1BK6DxC5CH", "s17": "https://s.shopee.com.br/7AbBRI9o4a", "s18": "https://s.shopee.com.br/3g1JH0jtQu",
+        "s19": "https://s.shopee.com.br/180uPqR2j", "s20": "https://s.shopee.com.br/8fPzEOvD1w", "s21": "https://s.shopee.com.br/8V6Z2A8b1J",
+        "s22": "https://s.shopee.com.br/gNhhvoo5l", "s23": "https://s.shopee.com.br/AKYDDnybD9", "s24": "https://s.shopee.com.br/3qKjTtzVyR",
+        "s25": "https://s.shopee.com.br/50Wgs9XPou", "s26": "https://s.shopee.com.br/7KubeXH9wC", "s27": "https://s.shopee.com.br/5q5nrpCrJB",
+        "s28": "https://s.shopee.com.br/60PE4B2DFB", "s29": "https://s.shopee.com.br/70HlGAkws5", "s30": "https://s.shopee.com.br/7KubepsEIa",
+        "s31": "https://s.shopee.com.br/AAEn26WgSn", "s32": "https://s.shopee.com.br/6L24T8A3mR", "s33": "https://s.shopee.com.br/7Kubf1NBqB",
+        "s34": "https://s.shopee.com.br/7VE1rNXzc7", "s35": "https://s.shopee.com.br/1gGEuoLuf8", "s36": "https://s.shopee.com.br/5Aq75IcAu8",
+        "s37": "https://s.shopee.com.br/qh7vP7U8W", "s38": "https://s.shopee.com.br/W4HWtbkOe", "s39": "https://s.shopee.com.br/8Kn8rKu46U",
+        "s40": "https://s.shopee.com.br/9zvMqks25N", "s41": "https://s.shopee.com.br/6VLUgPtvan", "s42": "https://s.shopee.com.br/4ftqV5UYNs",
+        "s43": "https://s.shopee.com.br/7Kubg2oKcc", "s44": "https://s.shopee.com.br/30lcWAbf90", "s45": "https://s.shopee.com.br/7fXS4rqbuv",
+        "s46": "https://s.shopee.com.br/6L292lz8Ol", "s47": "https://s.shopee.com.br/9AMKQaHOoX", "s48": "https://s.shopee.com.br/7KughZrOKz",
+        "s49": "https://s.shopee.com.br/2LW0kx9Pzp", "s50": "https://s.shopee.com.br/3B57kpsp0y", "s51": "https://s.shopee.com.br/1BK3Qq9fPJ",
+        "s52": "https://s.shopee.com.br/7AbGbRuXGM", "s53": "https://s.shopee.com.br/9fIiM3zqWV"
     };
 
     if (destinos[codigo]) {
