@@ -3,51 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEBMARKETG67 | Vitrines de Afiliado</title>
+    <title>WEBMARKET67 | Vitrines de Afiliado</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: #f5f5f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
-        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        body { background-color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
         h1 { font-weight: 800; font-size: 24px; margin-bottom: 10px; }
-        h1 span { color: #ee4d2d; }
+        span { color: #ee4d2d; }
         p { color: #666; margin-bottom: 25px; font-size: 14px; }
         .links-grid { display: flex; flex-direction: column; gap: 15px; }
-        .btn { text-decoration: none; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 700; transition: 0.3s; color: white; border: none; font-size: 16px; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); opacity: 0.9; }
-        
-        /* Cores das Marcas */
+        .btn { text-decoration: none; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: transform 0.2s; }
+        .btn:hover { transform: translateY(-3px); }
         .shopee { background-color: #ee4d2d; }
         .amazon { background-color: #232f3e; }
         .mercado-livre { background-color: #fff159; color: #333; }
         
-        i { font-size: 20px; }
+        /* Estilo do novo buscador */
+        .search-box { margin-top: 25px; display: flex; gap: 5px; }
+        .search-box input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1; }
+        .search-box button { padding: 10px 15px; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>WEBMARKET<span>G67</span></h1>
+    <h1>WEBMARKET<span>67</span></h1>
     <p>Escolha uma de nossas vitrines oficiais:</p>
 
-    <div class="links-grid">
-        <!-- BOTÃO SHOPEE -->
-        <a href="shopee.html" class="btn shopee">
-            <i class="fas fa-shopping-bag"></i> VITRINE SHOPEE
-        </a>
+    <div class="search-box">
+        <input type="text" id="codigoBusca" placeholder="Ex: S001 ou A001">
+        <button onclick="buscarProduto()">Ir</button>
+    </div>
 
-        <!-- BOTÃO AMAZON -->
-        <a href="amazon.html" class="btn amazon">
-            <i class="fab fa-amazon"></i> VITRINE AMAZON
-        </a>
-
-        <!-- BOTÃO MERCADO LIVRE -->
-        <a href="mercadolivre.html" class="btn mercado-livre">
-            <i class="fas fa-handshake"></i> MERCADO LIVRE
-        </a>
+    <div class="links-grid" style="margin-top: 20px;">
+        <a href="shopee.html" class="btn shopee"><i class="fas fa-shopping-bag"></i> VITRINE SHOPEE</a>
+        <a href="amazon.html" class="btn amazon"><i class="fab fa-amazon"></i> VITRINE AMAZON</a>
+        <a href="mercado-livre.html" class="btn mercado-livre"><i class="fas fa-handshake"></i> MERCADO LIVRE</a>
     </div>
 </div>
+
+<script>
+function buscarProduto() {
+    let codigo = document.getElementById("codigoBusca").value.toUpperCase();
+    if (codigo.startsWith("S")) {
+        window.location.href = "shopee.html"; 
+    } else if (codigo.startsWith("A")) {
+        window.location.href = "amazon.html";
+    } else {
+        alert("Código inválido! Use S para Shopee ou A para Amazon.");
+    }
+}
+</script>
 
 </body>
 </html>
