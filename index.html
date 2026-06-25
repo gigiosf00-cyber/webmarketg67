@@ -8,34 +8,30 @@
     <style>
         body { background-color: #f5f5f5; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; }
         .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
-        h1 { font-weight: 800; font-size: 24px; margin-bottom: 10px; }
+        h1 { font-weight: 800; font-size: 24px; margin-bottom: 20px; }
         span { color: #ee4d2d; }
-        p { color: #666; margin-bottom: 25px; font-size: 14px; }
+        .search-box { margin-bottom: 25px; display: flex; gap: 5px; }
+        .search-box input { padding: 12px; border: 2px solid #ddd; border-radius: 8px; flex: 1; font-weight: 700; text-transform: uppercase; }
+        .search-box button { padding: 10px 20px; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 800; }
         .links-grid { display: flex; flex-direction: column; gap: 15px; }
         .btn { text-decoration: none; padding: 15px; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; transition: transform 0.2s; }
         .btn:hover { transform: translateY(-3px); }
         .shopee { background-color: #ee4d2d; }
         .amazon { background-color: #232f3e; }
         .mercado-livre { background-color: #fff159; color: #333; }
-        
-        /* Estilo do novo buscador */
-        .search-box { margin-top: 25px; display: flex; gap: 5px; }
-        .search-box input { padding: 10px; border: 1px solid #ddd; border-radius: 8px; flex: 1; }
-        .search-box button { padding: 10px 15px; background: #333; color: white; border: none; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h1>WEBMARKET<span>67</span></h1>
-    <p>Escolha uma de nossas vitrines oficiais:</p>
-
+    
     <div class="search-box">
-        <input type="text" id="codigoBusca" placeholder="Ex: S001 ou A001">
-        <button onclick="buscarProduto()">Ir</button>
+        <input type="text" id="codigoBusca" placeholder="EX: S1, A1...">
+        <button onclick="buscarProduto()">IR</button>
     </div>
 
-    <div class="links-grid" style="margin-top: 20px;">
+    <div class="links-grid">
         <a href="shopee.html" class="btn shopee"><i class="fas fa-shopping-bag"></i> VITRINE SHOPEE</a>
         <a href="amazon.html" class="btn amazon"><i class="fab fa-amazon"></i> VITRINE AMAZON</a>
         <a href="mercado-livre.html" class="btn mercado-livre"><i class="fas fa-handshake"></i> MERCADO LIVRE</a>
@@ -44,16 +40,28 @@
 
 <script>
 function buscarProduto() {
-    let codigo = document.getElementById("codigoBusca").value.toUpperCase();
-    if (codigo.startsWith("S")) {
-        window.location.href = "shopee.html"; 
-    } else if (codigo.startsWith("A")) {
-        window.location.href = "amazon.html";
+    let codigo = document.getElementById("codigoBusca").value.trim().toLowerCase();
+    
+    // Lista de mapeamento (Aqui entra o destino do que for digitado)
+    const destinos = {
+        // Shopee (exemplo extraído do seu arquivo)
+        "s1": "https://s.shopee.com.br/70HpDRKLTD",
+        "s2": "https://s.shopee.com.br/9fIaQg9Mq8",
+        // ... adicione os outros S's aqui ...
+        
+        // Amazon (adicione o padrão A1: link)
+        "a1": "LINK_AMAZON_1",
+        
+        // Mercado Livre (adicione o padrão m1: link)
+        "m1": "LINK_MERCADO_LIVRE_1"
+    };
+
+    if (destinos[codigo]) {
+        window.location.href = destinos[codigo];
     } else {
-        alert("Código inválido! Use S para Shopee ou A para Amazon.");
+        alert("Código não encontrado!");
     }
 }
 </script>
-
 </body>
 </html>
