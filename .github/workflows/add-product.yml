@@ -3,45 +3,43 @@ name: Adicionar/Atualizar Produto
 on:
   workflow_dispatch:
     inputs:
+      platform:
+        description: 'Plataforma'
+        required: true
+        type: choice
+        options:
+        - shopee
+        - tiktok
+        - amazon
+        - mercadolivre
       code:
-        description: 'Código do produto (ex: S58)'
+        description: 'Código (ex: S61)'
         required: true
       title:
-        description: 'Título do produto'
+        description: 'Título'
         required: true
       target_url:
-        description: 'Link de Afiliado Shopee'
+        description: 'Link de Afiliado'
         required: true
-      video_url:
-        description: 'Link do Vídeo (Opcional)'
-        required: false
-        default: '#'
 
 jobs:
   add_product:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repositório
-        uses: actions/checkout@v4
-
-      - name: Configurar Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-
-      - name: Executar script de atualização
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '18' }
+      - run: node scripts/add_product.js
         env:
+          PLATFORM: ${{ github.event.inputs.platform }}
           PRODUCT_CODE: ${{ github.event.inputs.code }}
           PRODUCT_TITLE: ${{ github.event.inputs.title }}
           TARGET_URL: ${{ github.event.inputs.target_url }}
-          VIDEO_URL: ${{ github.event.inputs.video_url }}
-        run: node scripts/add_product.js
-
-      - name: Salvar alterações no GitHub
-        run: |
+      - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html shopee.html
-          git commit -m "Auto: produto ${{ github.event.inputs.code }} adicionado/atualizado" || echo "Sem mudanças"
+          git add *.html
+          git commit -m "Auto: ${{ github.event.inputs.platform }} - ${{ github.event.inputs.code }}" || echo "Sem mudanças"
           git push
-
