@@ -20,7 +20,6 @@
         .amazon { background-color: #232f3e; }
         .mercado-livre { background-color: #fff159; color: #333; }
         .tiktok { background-color: #000000; color: #ffffff; }
-
     </style>
 </head>
 <body>
@@ -38,16 +37,21 @@
         <a href="amazon.html" class="btn amazon"><i class="fab fa-amazon"></i> VITRINE AMAZON</a>
         <a href="mercadolivre.html" class="btn mercado-livre"><i class="fas fa-handshake"></i> MERCADO LIVRE</a>
         <a href="tiktok.html" class="btn tiktok"><i class="fab fa-tiktok"></i> VITRINE TIKTOK</a>
-
     </div>
 </div>
 
-
 <script>
 function buscarProduto() {
-    let codigo = document.getElementById("codigoBusca").value.trim().toLowerCase();
+    let input = document.getElementById("codigoBusca").value;
+    
+    // 1. Limpa espaços e transforma em minúsculas
+    let codigo = input.trim().toLowerCase().replace(/\s+/g, '');
+    
+    // 2. Remove zeros à esquerda (ex: "s001" -> "s1", "sg01" -> "sg1", "tk005" -> "tk5")
+    codigo = codigo.replace(/^([a-z]+)0*(\d+)$/, '$1$2');
     
     const destinos = {
+        // === SHOPEE MODA FEMININA / BOLSAS / SAPATOS (S) ===
         "s1": "https://s.shopee.com.br/70HpDRKLTD",
         "s2": "https://s.shopee.com.br/9fIaQg9Mq8",
         "s3": "https://s.shopee.com.br/W4LW7RzHZ",
@@ -107,22 +111,29 @@ function buscarProduto() {
         "s57": "https://s.shopee.com.br/AAFsHYg1Kr",
         "s58": "https://s.shopee.com.br/6L3Vqo5cmt",
         "s59": "https://s.shopee.com.br/20uWhqWLLj",
-        "s60": "https://s.shopee.com.br/50Y8PfSPCa"
+        "s60": "https://s.shopee.com.br/50Y8PfSPCa",
+
+        // === SHOPEE GERAL (SG) ===
+        "sg1": "https://s.shopee.com.br/LINK_SHOPEE_GERAL_1",
+
+        // === TIKTOK SHOP (TK) ===
+        "tk1": "https://vt.tiktok.com/LINK_TIKTOK_1"
     };
 
     if (destinos[codigo]) {
         window.location.href = destinos[codigo];
     } else {
-        alert("Código não encontrado!");
+        alert("Código não encontrado! Verifique o número e tente novamente.");
     }
 }
 </script>
-        <!-- Rodapé Legal Obrigatório -->
-    <div style="text-align: center; padding: 20px; font-size: 13px; margin-top: 20px;">
-        <a href="privacy.html" style="color: #888; text-decoration: none; font-weight: bold;">Política de Privacidade</a>
-        <span style="color: #ccc; margin: 0 10px;">|</span>
-        <a href="terms.html" style="color: #888; text-decoration: none; font-weight: bold;">Termos de Serviço</a>
-    </div>
+
+<!-- Rodapé Legal Obrigatório -->
+<div style="text-align: center; padding: 20px; font-size: 13px; margin-top: 20px;">
+    <a href="privacy.html" style="color: #888; text-decoration: none; font-weight: bold;">Política de Privacidade</a>
+    <span style="color: #ccc; margin: 0 10px;">|</span>
+    <a href="terms.html" style="color: #888; text-decoration: none; font-weight: bold;">Termos de Serviço</a>
+</div>
 
 </body>
 </html>
