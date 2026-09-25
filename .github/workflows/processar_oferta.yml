@@ -88,7 +88,10 @@ jobs:
             </div>
           '''
 
-          for vitrine in ['shopee.html', 'shopee_geral.html']:
+          # Lista de todas as vitrines onde o card deve ser injetado
+          vitrines = ['shopee.html', 'shopee_geral.html', 'shopee_sg.html', 'sg.html']
+
+          for vitrine in vitrines:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
                       pag_html = f.read()
@@ -110,5 +113,5 @@ jobs:
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Processa oferta e atualiza vitrine" || exit 0
+          git commit -m "Processa oferta e atualiza todas as vitrines" || exit 0
           git push
