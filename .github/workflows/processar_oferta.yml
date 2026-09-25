@@ -7,7 +7,7 @@ on:
         description: 'URL da Imagem do Produto'
         required: true
       tag_oferta:
-        description: 'Codigo da Oferta (ex: SG1 ou SG001)'
+        description: 'Codigo da Oferta (ex: SG1 ou S61)'
         required: true
       link_afiliado:
         description: 'Link de Afiliado Shopee'
@@ -88,7 +88,13 @@ jobs:
             </div>
           '''
 
-          for vitrine in ['shopee.html', 'shopee_geral.html']:
+          # Decidir a vitrine com base no prefixo da tag (se começa com sg vai para shopee_geral.html, senão vai para shopee.html)
+          if tag_chave.startswith('sg'):
+              vitrines = ['shopee_geral.html']
+          else:
+              vitrines = ['shopee.html']
+
+          for vitrine in vitrines:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
                       pag_html = f.read()
@@ -110,5 +116,5 @@ jobs:
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Processa oferta e atualiza vitrines" || exit 0
+          git commit -m "Processa oferta inteligentemente por vitrine" || exit 0
           git push
