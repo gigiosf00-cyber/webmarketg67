@@ -12,6 +12,14 @@ on:
       link_afiliado:
         description: 'Link de Afiliado Shopee'
         required: true
+      vitrine_destino:
+        description: 'Escolha a Vitrine (shopee ou sg)'
+        required: true
+        default: 'shopee'
+        type: choice
+        options:
+          - shopee
+          - sg
 
 jobs:
   build:
@@ -40,6 +48,7 @@ jobs:
           img_url = '''${{ github.event.inputs.imagem_url }}'''.strip()
           tag_raw = '''${{ github.event.inputs.tag_oferta }}'''.strip()
           link = '''${{ github.event.inputs.link_afiliado }}'''.strip()
+          destino_escolhido = '''${{ github.event.inputs.vitrine_destino }}'''.strip().lower()
 
           tag_chave = re.sub(r'^([a-z]+)0*(\d+)$', r'\1\2', tag_raw.lower())
 
@@ -88,8 +97,8 @@ jobs:
             </div>
           '''
 
-          # Decidir a vitrine com base no prefixo da tag (se começa com sg vai para shopee_geral.html, senão vai para shopee.html)
-          if tag_chave.startswith('sg'):
+          # Define estritamente a página com base na sua escolha no menu
+          if destino_escolhido == 'sg':
               vitrines = ['shopee_geral.html']
           else:
               vitrines = ['shopee.html']
@@ -98,17 +107,21 @@ jobs:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
                       pag_html = f.read()
-                  if f'img/shopee/{tag_chave}.jpg' not in pag_html:
-                      if '<!-- PRODUTOS_INICIO -->' in pag_html:
-                          pag_html = pag_html.replace('<!-- PRODUTOS_INICIO -->', f'<!-- PRODUTOS_INICIO -->\n{card_html}')
-                      elif '<div class=\"grid\">' in pag_html:
-                          pag_html = pag_html.replace('<div class=\"grid\">', f'<div class=\"grid\">\n{card_html}')
-                      elif '<div class=\"links-grid\">' in pag_html:
-                          pag_html = pag_html.replace('<div class=\"links-grid\">', f'<div class=\"links-grid\">\n{card_html}')
-                      else:
-                          pag_html = pag_html.replace('</body>', f'{card_html}\n</body>')
-                      with open(vitrine, 'w', encoding='utf-8') as f:
-                          f.write(pag_html)
+                  
+                  # Remove o card antigo se já existir para garantir a atualização limpa
+                  pag_html = re.sub(rf'<div class=\"card\">\s*<a href=\"[^\"]*\" target=\"_blank\">\s*<img src=\"img/shopee/{tag_chave}\.jpg\"[^>]*>\s*</a>\s*</div>', '', pag_html)
+
+                  if '<!-- PRODUTOS_INICIO -->' in pag_html:
+                      pag_html = pag_html.replace('<!-- PRODUTOS_INICIO -->', f'<!-- PRODUTOS_INICIO -->\n{card_html}')
+                  elif '<div class=\"grid\">' in pag_html:
+                      pag_html = pag_html.replace('<div class=\"grid\">', f'<div class=\"grid\">\n{card_html}')
+                  elif '<div class=\"links-grid\">' in pag_html:
+                      pag_html = pag_html.replace('<div class=\"links-grid\">', f'<div class=\"links-grid\">\n{card_html}')
+                  else:
+                      pag_html = pag_html.replace('</body>', f'{card_html}\n</body>')
+                  
+                  with open(vitrine, 'w', encoding='utf-8') as f:
+                      f.write(pag_html)
           "
 
       - name: Salvar e Publicar no GitHub Pages
@@ -116,5 +129,5 @@ jobs:
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Processa oferta inteligentemente por vitrine" || exit 0
+          git commit -m "Publica oferta na vitrine selecionada" || exit 0
           git push
