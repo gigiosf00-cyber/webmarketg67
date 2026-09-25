@@ -7,7 +7,7 @@ on:
         description: 'URL da Imagem do Produto'
         required: true
       tag_oferta:
-        description: 'Código da Oferta (ex: SG15 ou SG001)'
+        description: 'Código da Oferta (ex: SG1 ou SG001)'
         required: true
       link_afiliado:
         description: 'Link de Afiliado Shopee'
@@ -35,12 +35,16 @@ jobs:
         run: |
           python -c "
           import os
+          import re
           import requests
           from PIL import Image, ImageDraw, ImageFont
 
           img_url = '''${{ github.event.inputs.imagem_url }}'''
-          tag = '''${{ github.event.inputs.tag_oferta }}'''.upper()
-          link = '''${{ github.event.inputs.link_afiliado }}'''
+          tag_raw = '''${{ github.event.inputs.tag_oferta }}'''.strip()
+          link = '''${{ github.event.inputs.link_afiliado }}'''.strip()
+
+          # Normaliza a tag limpando zeros à esquerda (ex: SG001 -> sg1)
+          tag_chave = re.sub(r'^([a-z]+)0*(\d+)$', r'\1\2', tag_raw.lower())
 
           # 1. Download da Imagem
           resp = requests.get(img_url)
@@ -64,13 +68,28 @@ jobs:
               fonte = ImageFont.load_default()
 
           draw.rectangle([50, altura - 150, largura - 50, altura - 50], fill=(238, 77, 45))
-          draw.text((80, altura - 130), f'#{tag}', fill=(255, 255, 255), font=fonte)
+          draw.text((80, altura - 130), f'#{tag_chave.upper()}', fill=(255, 255, 255), font=fonte)
 
-          # Guardar imagem final na pasta do site
+          # 3. Guardar imagem final na pasta do site
           os.makedirs('img/shopee', exist_ok=True)
-          caminho_imagem = f'img/shopee/{tag.lower()}.jpg'
+          caminho_imagem = f'img/shopee/{tag_chave}.jpg'
           fundo.save(caminho_imagem, quality=90)
           print(f'Imagem guardada em: {caminho_imagem}')
+
+          # 4. Atualizar automaticamente o index.html com o Link de Afiliado
+          if os.path.exists('index.html'):
+              with open('index.html', 'r', encoding='utf-8') as f:
+                  conteudo = f.read()
+
+              nova_linha = f'  \"{tag_chave}\": \"{link}\",\n'
+              if f'\"{tag_chave}\":' in conteudo:
+                  conteudo = re.sub(rf'\"{tag_chave}\":\s*\"[^\"]*\"', f'\"{tag_chave}\": \"{link}\"', conteudo)
+              else:
+                  conteudo = conteudo.replace('const destinos = {', f'const destinos = {{\n{nova_linha}')
+
+              with open('index.html', 'w', encoding='utf-8') as f:
+                  f.write(conteudo)
+              print(f'Link registrado no index.html para a chave {tag_chave}')
           "
 
       - name: Salvar e Publicar no GitHub Pages
@@ -78,5 +97,5 @@ jobs:
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Adiciona imagem em img/shopee" || exit 0
+          git commit -m "Processa oferta e atualiza link automaticamente" || exit 0
           git push
