@@ -88,20 +88,17 @@ jobs:
             </div>
           '''
 
-          # Lista de todas as vitrines onde o card deve ser injetado
-          vitrines = ['shopee.html', 'shopee_geral.html', 'shopee_sg.html', 'sg.html']
-
-          for vitrine in vitrines:
+          for vitrine in ['shopee.html', 'shopee_geral.html']:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
                       pag_html = f.read()
                   if f'img/shopee/{tag_chave}.jpg' not in pag_html:
                       if '<!-- PRODUTOS_INICIO -->' in pag_html:
                           pag_html = pag_html.replace('<!-- PRODUTOS_INICIO -->', f'<!-- PRODUTOS_INICIO -->\n{card_html}')
-                      elif '<div class=\"links-grid\">' in pag_html:
-                          pag_html = pag_html.replace('<div class=\"links-grid\">', f'<div class=\"links-grid\">\n{card_html}')
                       elif '<div class=\"grid\">' in pag_html:
                           pag_html = pag_html.replace('<div class=\"grid\">', f'<div class=\"grid\">\n{card_html}')
+                      elif '<div class=\"links-grid\">' in pag_html:
+                          pag_html = pag_html.replace('<div class=\"links-grid\">', f'<div class=\"links-grid\">\n{card_html}')
                       else:
                           pag_html = pag_html.replace('</body>', f'{card_html}\n</body>')
                       with open(vitrine, 'w', encoding='utf-8') as f:
@@ -113,5 +110,5 @@ jobs:
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Processa oferta e atualiza todas as vitrines" || exit 0
+          git commit -m "Processa oferta e atualiza vitrines" || exit 0
           git push
