@@ -7,7 +7,7 @@ on:
         description: 'URL da Imagem do Produto'
         required: true
       tag_oferta:
-        description: 'Código da Oferta (ex: SG1 ou SG001)'
+        description: 'Codigo da Oferta (ex: SG1 ou SG001)'
         required: true
       link_afiliado:
         description: 'Link de Afiliado Shopee'
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Baixar Código do Repositório
+      - name: Baixar Codigo do Repositorio
         uses: actions/checkout@v3
 
       - name: Configurar Python
@@ -26,14 +26,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Instalar Dependências
+      - name: Instalar Dependencias
         run: |
           python -m pip install --upgrade pip
           pip install Pillow requests
 
-      - name: Executar Script de Edição e Publicação
+      - name: Executar Script de Edicao e Publicacao
         run: |
-          python -c "
+          cat << 'EOF' > script.py
           import os
           import re
           import requests
@@ -43,7 +43,7 @@ jobs:
           tag_raw = '''${{ github.event.inputs.tag_oferta }}'''.strip()
           link = '''${{ github.event.inputs.link_afiliado }}'''.strip()
 
-          # Normaliza a tag limpando zeros à esquerda (ex: SG001 -> sg1)
+          # Normaliza a tag limpando zeros a esquerda (ex: SG001 -> sg1)
           tag_chave = re.sub(r'^([a-z]+)0*(\d+)$', r'\1\2', tag_raw.lower())
 
           # 1. Download da Imagem
@@ -51,7 +51,7 @@ jobs:
           with open('temp.jpg', 'wb') as f:
               f.write(resp.content)
 
-          # 2. Ajuste para Formato Vertical 9:16 e Marca de Água
+          # 2. Ajuste para Formato Vertical 9:16 e Marca de Agua
           img = Image.open('temp.jpg').convert('RGB')
           largura, altura = 1080, 1920
           fundo = Image.new('RGB', (largura, altura), (245, 245, 245))
@@ -81,9 +81,9 @@ jobs:
               with open('index.html', 'r', encoding='utf-8') as f:
                   conteudo = f.read()
 
-              nova_linha = f'  \"{tag_chave}\": \"{link}\",\n'
-              if f'\"{tag_chave}\":' in conteudo:
-                  conteudo = re.sub(rf'\"{tag_chave}\":\s*\"[^\"]*\"', f'\"{tag_chave}\": \"{link}\"', conteudo)
+              nova_linha = f'  "{tag_chave}": "{link}",\n'
+              if f'"{tag_chave}":' in conteudo:
+                  conteudo = re.sub(rf'"{tag_chave}":\s*"[^"]*"', f'"{tag_chave}": "{link}"', conteudo)
               else:
                   conteudo = conteudo.replace('const destinos = {', f'const destinos = {{\n{nova_linha}')
 
@@ -91,11 +91,11 @@ jobs:
                   f.write(conteudo)
               print(f'Link registrado no index.html para a chave {tag_chave}')
 
-          # 5. Adicionar APENAS a Imagem Clicável na Vitrine
+          # 5. Adicionar APENAS a Imagem Clicavel na Vitrine
           card_html = f'''
-    <div class=\"card\">
-      <a href=\"{link}\" target=\"_blank\">
-        <img src=\"img/shopee/{tag_chave}.jpg\" alt=\"Oferta #{tag_chave.upper()}\">
+    <div class="card">
+      <a href="{link}" target="_blank">
+        <img src="img/shopee/{tag_chave}.jpg" alt="Oferta #{tag_chave.upper()}">
       </a>
     </div>
 '''
@@ -116,8 +116,9 @@ jobs:
 
                       with open(vitrine, 'w', encoding='utf-8') as f:
                           f.write(pag_html)
-                      print(f'Imagem clicável adicionada na vitrine {vitrine}')
-          "
+                      print(f'Imagem clicavel adicionada na vitrine {vitrine}')
+          EOF
+          python script.py
 
       - name: Salvar e Publicar no GitHub Pages
         run: |
