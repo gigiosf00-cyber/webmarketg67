@@ -33,25 +33,20 @@ jobs:
 
       - name: Executar Script de Edicao e Publicacao
         run: |
-          cat << 'EOF' > script.py
-          import os
-          import re
-          import requests
+          python -c "
+          import os, re, requests
           from PIL import Image, ImageDraw, ImageFont
 
-          img_url = '''${{ github.event.inputs.imagem_url }}'''
+          img_url = '''${{ github.event.inputs.imagem_url }}'''.strip()
           tag_raw = '''${{ github.event.inputs.tag_oferta }}'''.strip()
           link = '''${{ github.event.inputs.link_afiliado }}'''.strip()
 
-          # Normaliza a tag limpando zeros a esquerda (ex: SG001 -> sg1)
           tag_chave = re.sub(r'^([a-z]+)0*(\d+)$', r'\1\2', tag_raw.lower())
 
-          # 1. Download da Imagem
           resp = requests.get(img_url)
           with open('temp.jpg', 'wb') as f:
               f.write(resp.content)
 
-          # 2. Ajuste para Formato Vertical 9:16 e Marca de Agua
           img = Image.open('temp.jpg').convert('RGB')
           largura, altura = 1080, 1920
           fundo = Image.new('RGB', (largura, altura), (245, 245, 245))
@@ -70,32 +65,25 @@ jobs:
           draw.rectangle([50, altura - 150, largura - 50, altura - 50], fill=(238, 77, 45))
           draw.text((80, altura - 130), f'#{tag_chave.upper()}', fill=(255, 255, 255), font=fonte)
 
-          # 3. Guardar imagem na pasta da Shopee
           os.makedirs('img/shopee', exist_ok=True)
           caminho_imagem = f'img/shopee/{tag_chave}.jpg'
           fundo.save(caminho_imagem, quality=90)
-          print(f'Imagem guardada em: {caminho_imagem}')
 
-          # 4. Registrar no index.html para a caixa de busca
           if os.path.exists('index.html'):
               with open('index.html', 'r', encoding='utf-8') as f:
                   conteudo = f.read()
-
-              nova_linha = f'  "{tag_chave}": "{link}",\n'
-              if f'"{tag_chave}":' in conteudo:
-                  conteudo = re.sub(rf'"{tag_chave}":\s*"[^"]*"', f'"{tag_chave}": "{link}"', conteudo)
+              nova_linha = f'  \"{tag_chave}\": \"{link}\",\n'
+              if f'\"{tag_chave}\":' in conteudo:
+                  conteudo = re.sub(rf'\"{tag_chave}\":\s*\"[^\"]*\"', f'\"{tag_chave}\": \"{link}\"', conteudo)
               else:
                   conteudo = conteudo.replace('const destinos = {', f'const destinos = {{\n{nova_linha}')
-
               with open('index.html', 'w', encoding='utf-8') as f:
                   f.write(conteudo)
-              print(f'Link registrado no index.html para a chave {tag_chave}')
 
-          # 5. Adicionar APENAS a Imagem Clicavel na Vitrine
           card_html = f'''
-    <div class="card">
-      <a href="{link}" target="_blank">
-        <img src="img/shopee/{tag_chave}.jpg" alt="Oferta #{tag_chave.upper()}">
+    <div class=\"card\">
+      <a href=\"{link}\" target=\"_blank\">
+        <img src=\"img/shopee/{tag_chave}.jpg\" alt=\"Oferta #{tag_chave.upper()}\">
       </a>
     </div>
 '''
@@ -103,27 +91,23 @@ jobs:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
                       pag_html = f.read()
-
                   if f'img/shopee/{tag_chave}.jpg' not in pag_html:
                       if '<!-- PRODUTOS_INICIO -->' in pag_html:
                           pag_html = pag_html.replace('<!-- PRODUTOS_INICIO -->', f'<!-- PRODUTOS_INICIO -->\n{card_html}')
-                      elif '<div class="links-grid">' in pag_html:
-                          pag_html = pag_html.replace('<div class="links-grid">', f'<div class="links-grid">\n{card_html}')
-                      elif '<div class="grid">' in pag_html:
-                          pag_html = pag_html.replace('<div class="grid">', f'<div class="grid">\n{card_html}')
+                      elif '<div class=\"links-grid\">' in pag_html:
+                          pag_html = pag_html.replace('<div class=\"links-grid\">', f'<div class=\"links-grid\">\n{card_html}')
+                      elif '<div class=\"grid\">' in pag_html:
+                          pag_html = pag_html.replace('<div class=\"grid\">', f'<div class=\"grid\">\n{card_html}')
                       else:
                           pag_html = pag_html.replace('</body>', f'{card_html}\n</body>')
-
                       with open(vitrine, 'w', encoding='utf-8') as f:
                           f.write(pag_html)
-                      print(f'Imagem clicavel adicionada na vitrine {vitrine}')
-          EOF
-          python script.py
+          "
 
       - name: Salvar e Publicar no GitHub Pages
         run: |
           git config --global user.name "Bot Webmarket"
           git config --global user.email "bot@webmarketg67.com"
           git add .
-          git commit -m "Processa oferta e adiciona imagem clicavel na vitrine" || exit 0
+          git commit -m "Processa oferta e atualiza vitrine" || exit 0
           git push
