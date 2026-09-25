@@ -1,1 +1,83 @@
+name: Processar Ofertas Webmarket
+
+on:
+  workflow_dispatch:
+    inputs:
+      imagem_url:
+        description: 'URL da Imagem do Produto'
+        required: true
+      tag_oferta:
+        description: 'Código da Oferta (ex: SG15 ou S20)'
+        required: true
+      link_afiliado:
+        description: 'Link de Afiliado Shopee'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar Código do Repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install Pillow requests
+
+      - name: Executar Script de Edição e Publicação
+        run: |
+          python - << 'EOF'
+          import os
+          import requests
+          from PIL import Image, ImageDraw, ImageFont
+
+          img_url = "${{ github.event.inputs.imagem_url }}"
+          tag = "${{ github.event.inputs.tag_oferta }}".upper()
+          link = "${{ github.event.inputs.link_afiliado }}"
+
+          # 1. Download da Imagem
+          resp = requests.get(img_url)
+          with open("temp.jpg", "wb") as f:
+              f.write(resp.content)
+
+          # 2. Ajuste para Formato Vertical 9:16 e Marca de Água
+          img = Image.open("temp.jpg").convert("RGB")
+          largura, altura = 1080, 1920
+          fundo = Image.new("RGB", (largura, altura), (245, 245, 245))
+          
+          img.thumbnail((largura - 80, altura - 200), Image.Resampling.LANCZOS)
+          pos_x = (largura - img.width) // 2
+          pos_y = (altura - img.height) // 2
+          fundo.paste(img, (pos_x, pos_y))
+
+          draw = ImageDraw.Draw(fundo)
+          try:
+              fonte = ImageFont.truetype("arial.ttf", 60)
+          except:
+              fonte = ImageFont.load_default()
+
+          draw.rectangle([50, altura - 150, 450, altura - 50], fill=(238, 77, 45))
+          draw.text((80, altura - 130), f"#{tag}", fill=(255, 255, 255), font=fonte)
+
+          # Guardar imagem final na pasta do site
+          os.makedirs("assets/img", exist_ok=True)
+          caminho_imagem = f"assets/img/{tag.lower()}.jpg"
+          fundo.save(caminho_imagem, quality=90)
+          print(f"Imagem guardada em: {caminho_imagem}")
+          EOF
+
+      - name: Salvar e Publicar no GitHub Pages
+        run: |
+          git config --global user.name "Bot Webmarket"
+          git config --global user.email "bot@webmarketg67.com"
+          git add .
+          git commit -m "Bot: Adicionada nova oferta ${{ github.event.inputs.tag_oferta }}" || exit 0
+          git push
 
