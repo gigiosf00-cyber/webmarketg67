@@ -81,12 +81,13 @@ jobs:
                   f.write(conteudo)
 
           card_html = f'''
-    <div class=\"card\">
-      <a href=\"{link}\" target=\"_blank\">
-        <img src=\"img/shopee/{tag_chave}.jpg\" alt=\"Oferta #{tag_chave.upper()}\">
-      </a>
-    </div>
-'''
+            <div class=\"card\">
+              <a href=\"{link}\" target=\"_blank\">
+                <img src=\"img/shopee/{tag_chave}.jpg\" alt=\"Oferta #{tag_chave.upper()}\">
+              </a>
+            </div>
+          '''
+
           for vitrine in ['shopee.html', 'shopee_geral.html']:
               if os.path.exists(vitrine):
                   with open(vitrine, 'r', encoding='utf-8') as f:
